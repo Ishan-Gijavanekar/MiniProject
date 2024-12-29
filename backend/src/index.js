@@ -30,7 +30,9 @@ app.use("/api/v1/messages", messageRoutes)
 app.use("/api/v1/vechiles", vechileRoutes)
 
 
-// This is for the testing purpose
+// This is for the testing purpose and will be deleted later
+
+// This is again for testing
 
 app.listen(port, () => {
     connectDb()
