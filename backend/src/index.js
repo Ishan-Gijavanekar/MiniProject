@@ -30,6 +30,8 @@ app.use("/api/v1/messages", messageRoutes)
 app.use("/api/v1/vechiles", vechileRoutes)
 
 
+// This is for the testing purpose
+
 app.listen(port, () => {
     connectDb()
     console.log(`Server is running on port ${port}`)
