@@ -19,7 +19,10 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}))
 
 // Routes
 app.use("/api/v1/users", userRoutes)
@@ -30,9 +33,6 @@ app.use("/api/v1/messages", messageRoutes)
 app.use("/api/v1/vechiles", vechileRoutes)
 
 
-// This is for the testing purpose and will be deleted later
-
-// This is again for testing
 
 app.listen(port, () => {
     connectDb()

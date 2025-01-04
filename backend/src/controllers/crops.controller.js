@@ -142,5 +142,71 @@ const updateCropDetails = async(req, res) => {
     }
 } 
 
+const getCrops = async (req, res) => {
+    try {
+        const userId = req.user._id
 
-export {addCrop, uploadCropImage, updateCropDetails}
+        const crops = await Crop.find({farmerId: userId})
+
+        res.status(200)
+        .json({
+            crops
+        })
+    } catch (error) {
+        console.log("Error in getting the crops: ", error.message)
+        res.status(500).json({message: "Internal server error"})
+    }
+}
+
+const getCropById = async (req, res) => {
+    try {
+        const {id} = req.params
+        const crop = await Crop.findById(id)
+
+        res.status(200)
+        .json({
+            crop
+        })
+    } catch (error) {
+        console.log("Error in getting crop by id ", error.message)
+        res.status(500).json({message: "Internal server error"})
+    }
+}
+
+const getAvaibleStock = async(req, res) => {
+    const {cropName, feildId} = req.body
+
+    const crop = await Crop.find({
+        $and: [{cropName}, {feildId}, {farmerId: req.user._id}]
+    })
+
+    if(!crop) {
+        return res.status(401)
+        .json({
+            message: "Invalid data"
+        })
+    }
+
+    const stock = await Stock.findOne({
+        $and: [{crop: crop._id}, {feild: feildId}]
+    })
+
+    const feild = await Feild.findById(feildId)
+
+    if(!stock) {
+        return res.status(401)
+        .json({
+            message: "Stock not avaible"
+        })
+    } else {
+        return res.status(401)
+        .json({
+            stock,
+            crop,
+            feild,
+            message: "Stock fetched successfully"
+        })
+    }
+}
+
+export {addCrop, uploadCropImage, updateCropDetails, getCrops, getCropById, getAvaibleStock}

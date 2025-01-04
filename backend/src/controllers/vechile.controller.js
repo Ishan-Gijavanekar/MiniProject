@@ -1,3 +1,4 @@
+import { Avaiblity } from "../models/avaibleVechile.model.js"
 import { Vechile } from "../models/Vechile.model.js"
 import cloudinary from "../utils/cloudinary.js"
 
@@ -170,4 +171,35 @@ const deleteVechiles = async (req, res) => {
     }
 }
 
-export {addVechile, uploadVechileImage, updateDetails, getVechiles, deleteVechiles}
+const bookVechile = async (req, res) => {
+    try {
+        const {id} = req.params
+        const {BookingDate, status} = req.body
+    
+        if (!BookingDate || !status) {
+            return res.status(401)
+            .json({
+                message: "All feilds are required"
+            })
+        }
+    
+        const booking = await new Avaiblity({
+            BookingDate,
+            status,
+            vechile: id
+        })
+    
+        await booking.save()
+    
+        return res.status(200)
+        .json({
+            booking,
+            message: "Vechile Booked successfully"
+        })
+    } catch (error) {
+        console.log("Error in booking Vechile ", error.message)
+        res.status(500).json({message: "Internal server error"})
+    }
+}
+
+export {addVechile, uploadVechileImage, updateDetails, getVechiles, deleteVechiles, bookVechile}
