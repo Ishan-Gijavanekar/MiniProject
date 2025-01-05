@@ -12,6 +12,9 @@ import Homepage from "./pages/Homepage";
 import FieldList from "./components/FeildList";
 import FieldCard from "./pages/FeildCard";
 import FieldDetails from "./pages/FeildDetails";
+import ContactUs from "./components/Contact";
+import AboutPageFarmer from "./pages/AboutFarmer";
+import ServicesPage from "./pages/ServicesPageFarmer";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -22,6 +25,9 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/homepage" element={<Layout />}>
             <Route path="/homepage/feilds" element={<FieldList />} />
+            <Route path="/homepage/about" element={<AboutPageFarmer />} />
+            <Route path="/homepage/services" element={<ServicesPage />} />
+            <Route path="/homepage/contact" element={<ContactUs />} />
             <Route path="/homepage/feild/:id" element={<FieldDetails />} />
             <Route path="/homepage/:id" element={<FieldCard />} />
             <Route path="/homepage/add-field" element={<AddField />} />

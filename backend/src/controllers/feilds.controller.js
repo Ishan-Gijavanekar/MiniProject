@@ -1,4 +1,5 @@
 import { Feild } from "../models/feild.model.js"
+import mongoose from "mongoose"
 
 
 const addFeild = async(req, res) => {
@@ -116,22 +117,41 @@ const updateFeids = async(req, res) => {
     }
 }
 
-const getFeildById = async(req, res) => {
+const getFeildById = async (req, res) => {
     try {
-        const {id} = req.params
-    
-        const feild = await Feild.findById(id)
-    
-        return res.status(200)
-        .json({
-            feild,
-            message: "Feild retrived Successfully"
-        })
+        const { id } = req.params;
+
+        const feild = await Feild.aggregate([
+            {
+                $match: { _id: new mongoose.Types.ObjectId(id) }
+            },
+            {
+                $lookup: {
+                    from: 'users', // The collection name for User
+                    localField: 'farmerId',
+                    foreignField: '_id',
+                    as: 'farmerDetails'
+                }
+            },
+            {
+                $unwind: '$farmerDetails' // Unwind the array to get the object
+            }
+        ]);
+
+        if (!feild.length) {
+            return res.status(404).json({ message: 'Feild not found' });
+        }
+
+        return res.status(200).json({
+            feild: feild[0],
+            message: "Feild retrieved Successfully"
+        });
     } catch (error) {
-        console.log("Error in getting feild uploader controller: ", error)
-        return res.status(500).json({message: "Internal server error"})
+        console.log("Error in getting feild uploader controller: ", error);
+        return res.status(500).json({ message: "Internal server error" });
     }
-}
+};
+
 
 
 

@@ -1,24 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Leaf, Edit2, Eye } from 'lucide-react';
+import { useCropStore } from '../store/cropStore'; // Adjust import path according to your project structure
 
-// Adjust import paths according to your project structure
-import { Button } from './path-to-your-ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './path-to-your-ui/card';
+const CropCard = ({ id }) => {
+  const { getCropByIdFromBody, isLoading, error } = useCropStore();
+  const [crop, setCrop] = useState(null);
 
-const CropCard = ({ imageSrc, cropName, onUpdate, onViewDetails }) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const cropData = await getCropByIdFromBody({id});
+      setCrop(cropData);
+    };
+
+    fetchData();
+  }, [id, getCropByIdFromBody]);
+
+  const onUpdate = () => {
+    // Update logic here
+  };
+
+  const onViewDetails = () => {
+    // View details logic here
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) return <div>Error: {error}</div>;
+
+  if (!crop) return <div>Crop not found</div>;
+
   return (
     <div className="w-full max-w-sm mx-auto bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden transition-shadow duration-300 hover:shadow-lg">
       <div className="relative w-full h-48">
         <img
-          src={imageSrc}
-          alt={cropName}
+          src={crop.cropImage || '/defaultPlant.jpg'} // Provide a default image URL if cropImage is not available
+          alt={crop.cropName || 'Unknown Crop'}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
       </div>
       <div className="p-4">
         <h3 className="flex items-center text-xl font-semibold text-gray-900">
           <Leaf className="w-5 h-5 mr-2 text-green-500" />
-          {cropName}
+          {crop.cropName || 'Unknown Crop'}
         </h3>
       </div>
       <div className="flex justify-between p-4 border-t border-gray-200">

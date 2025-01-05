@@ -13,8 +13,8 @@ export const useFarmStore = create((set) => ({
     set({ isLoading: true });
     try {
       const response = await axios.get(`${baseUrl}/get-feilds`);  // Updated endpoint
-      console.log(response)
-      set({ fields: response.data.feildList , isLoading: false });
+      console.log(response);
+      set({ fields: response.data.feildList, isLoading: false });
     } catch (error) {
       set({ error: error.message, isLoading: false });
     }
@@ -28,8 +28,8 @@ export const useFarmStore = create((set) => ({
       alert("Field Added Successfully");
     } catch (error) {
       set({ error: error.message, isLoading: false });
-      console.log(error)
-      alert("Error")
+      console.log(error);
+      alert("Error");
     }
   },
 
@@ -57,14 +57,15 @@ export const useFarmStore = create((set) => ({
   },
 
   getFieldById: async (id) => {
-    set({ isLoading: true });
-    try {
-      const response = await axios.get(`${baseUrl}/get-feild-by-id/${id}`);  // Updated endpoint
-      console.log(response)
-      set({isLoading: false });
-    } catch (error) {
-      set({ error: error.message, isLoading: false });
-      console.log(error)
+    set({ isLoading: true }); 
+    try { const response = await axios.get(`${baseUrl}/get-feild-by-id/${id}`); 
+    console.log(response); 
+    set((state) => ({ fields: [...state.fields.filter((field) => field._id !== id), response.data.feild], isLoading: false, })); 
+    return response.data.feild; // Return the fetched field 
+    } catch (error) { 
+      set({ error: error.message, isLoading: false }); 
+      console.log(error); 
+      return null; // Return null if there's an error } 
     }
   },
 }));

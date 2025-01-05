@@ -29,9 +29,9 @@ const Navbar = () => {
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 <NavLink to="/homepage/feilds">Home</NavLink>
-                <NavLink to="/about">About</NavLink>
-                <NavLink to="/services">Services</NavLink>
-                <NavLink to="/contact">Contact</NavLink>
+                <NavLink to="/homepage/about">About</NavLink>
+                <NavLink to="/homepage/services">Services</NavLink>
+                <NavLink to="/homepage/contact">Contact</NavLink>
               </div>
             </div>
           </div>
