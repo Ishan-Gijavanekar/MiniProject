@@ -59,10 +59,12 @@ export const useFarmStore = create((set) => ({
   getFieldById: async (id) => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/get-field-by-id/${id}`);  // Updated endpoint
-      set({ fields: [response.data.field], isLoading: false });
+      const response = await axios.get(`${baseUrl}/get-feild-by-id/${id}`);  // Updated endpoint
+      console.log(response)
+      set({isLoading: false });
     } catch (error) {
       set({ error: error.message, isLoading: false });
+      console.log(error)
     }
   },
 }));

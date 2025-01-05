@@ -11,6 +11,7 @@ import ForgotPasswordPage from "./pages/ForgetPasswordPage";
 import Homepage from "./pages/Homepage";
 import FieldList from "./components/FeildList";
 import FieldCard from "./pages/FeildCard";
+import FieldDetails from "./pages/FeildDetails";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/homepage" element={<Layout />}>
             <Route path="/homepage/feilds" element={<FieldList />} />
+            <Route path="/homepage/feild/:id" element={<FieldDetails />} />
             <Route path="/homepage/:id" element={<FieldCard />} />
             <Route path="/homepage/add-field" element={<AddField />} />
             <Route path="/homepage/add-crop" element={<AddCrop />} />

@@ -13,7 +13,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await logout();
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -28,7 +28,7 @@ const Navbar = () => {
             </Link>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <NavLink to="/">Home</NavLink>
+                <NavLink to="/homepage/feilds">Home</NavLink>
                 <NavLink to="/about">About</NavLink>
                 <NavLink to="/services">Services</NavLink>
                 <NavLink to="/contact">Contact</NavLink>

@@ -14,11 +14,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const res = await login({ email, password });
-    if(res) {
-      navigate("/homepage");
-    } else {
-      alert("Invalid Credentials")
-    }
+    navigate("/homepage/feilds")
   };
 
   return (

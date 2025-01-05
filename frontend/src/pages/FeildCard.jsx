@@ -1,16 +1,16 @@
 import React from 'react';
-import { MapPin, Maximize, Droplet, Mountain, Edit2, Trash2 } from 'lucide-react';
+import { MapPin, Maximize, Droplet, Mountain, Edit2, Trash2, Eye } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-const FieldCard = ({field}) => {
+const FieldCard = ({ field }) => {
 
   const onEdit = () => {
-
-  }
+    // Edit logic here
+  };
 
   const onDelete = () => {
-    
-  }
- 
+    // Delete logic here
+  };
 
   return (
     <div className="w-full max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg">
@@ -34,7 +34,7 @@ const FieldCard = ({field}) => {
           <span>Soil Type: {field.soilType}</span>
         </div>
       </div>
-      <div className="flex justify-between p-4 border-t border-gray-200">
+      <div className="flex justify-between p-4 border-t border-gray-200 space-x-2">
         <button
           onClick={onEdit}
           className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300"
@@ -49,6 +49,12 @@ const FieldCard = ({field}) => {
           <Trash2 className="w-4 h-4 mr-2" />
           Delete
         </button>
+        <Link to={`/homepage/feild/${field._id}`}
+          className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300"
+        >
+          <Eye className="w-4 h-4 mr-2" />
+          View Details
+        </Link>
       </div>
     </div>
   );
