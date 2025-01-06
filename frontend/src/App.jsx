@@ -4,8 +4,6 @@ import AddCrop from "./pages/AddCrop";
 import { BrowserRouter, Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Navbar from "./pages/Navbar";
-import Sidebar from "./pages/SideBar";
 import Layout from "./pages/Layout";
 import ForgotPasswordPage from "./pages/ForgetPasswordPage";
 import Homepage from "./pages/Homepage";
@@ -15,6 +13,8 @@ import FieldDetails from "./pages/FeildDetails";
 import ContactUs from "./components/Contact";
 import AboutPageFarmer from "./pages/AboutFarmer";
 import ServicesPage from "./pages/ServicesPageFarmer";
+import { UploadCropImageForm } from "./pages/UpdateCropImage";
+import Stock from "./pages/Stock";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -26,6 +26,8 @@ function App() {
           <Route path="/homepage" element={<Layout />}>
             <Route path="/homepage/feilds" element={<FieldList />} />
             <Route path="/homepage/about" element={<AboutPageFarmer />} />
+            <Route path="/homepage/update-status" element={<UploadCropImageForm />} />
+            <Route path="/homepage/present-stock" element={<Stock />} />
             <Route path="/homepage/services" element={<ServicesPage />} />
             <Route path="/homepage/contact" element={<ContactUs />} />
             <Route path="/homepage/feild/:id" element={<FieldDetails />} />

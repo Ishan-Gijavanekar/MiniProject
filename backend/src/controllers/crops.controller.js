@@ -65,49 +65,44 @@ const addCrop = async(req, res) => {
     }
 }
 
-const uploadCropImage = async(req, res) => {
-        try {
-            const {id} = req.params
-            const {cropImage} = req.body
-
-            if(!cropImage) {
-                return res.status(401)
-                .json({
-                    message: "Crop Image should be selected properly"
-                })
-            }
-
-            const response = await cloudinary.uploader.upload(cropImage)
-            const imageUrl = response.secure_url
-
-            const uploadImage = await Crop.findByIdAndUpdate(
-                id,
-                {
-                    $set: {cropImage:imageUrl},
-                },
-                {
-                    new: true,
-                }
-            )
-
-            if(uploadImage) {
-                return res.status(200)
-                .json({
-                    uploadImage,
-                    message: "Image uploaded successfully"
-                })
-            } else {
-                return res.status(401)
-                .json({
-                    uploadImage,
-                    message: "Some problem occured"
-                })
-            }
-        } catch (error) {
-            console.log("Error in add crop controller: ", error)
-            return res.status(500).json({message: "Internal Server Error"})
-        }
-}
+const uploadCropImage = async (req, res) => {
+    try {
+      const { farmId, cropId, cropImage } = req.body;
+  
+      if (!farmId || !cropId) {
+        return res.status(400).json({ message: "farmId and cropId must be provided" });
+      }
+  
+      if (!cropImage) {
+        return res.status(400).json({ message: "Crop Image should be selected properly" });
+      }
+  
+      const crop = await Crop.findOne({ feildId: farmId, _id: cropId });
+  
+      if (!crop) {
+        return res.status(404).json({ message: "Crop not found with the given farmId and cropId" });
+      }
+  
+      const response = await cloudinary.uploader.upload(cropImage);
+      const imageUrl = response.secure_url;
+  
+      const uploadImage = await Crop.findByIdAndUpdate(
+        crop._id,
+        { cropImage: imageUrl },
+        { new: true }
+      );
+  
+      if (uploadImage) {
+        return res.status(200).json({ uploadImage, message: "Image uploaded successfully" });
+      } else {
+        return res.status(500).json({ message: "Error updating crop image" });
+      }
+    } catch (error) {
+      console.log("Error in uploadCropImage controller: ", error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  };
+  
 
 const updateCropDetails = async(req, res) => {
     try {
@@ -188,40 +183,35 @@ const getCropByIdFromBody = async (req, res) => {
     }
 }
 
-const getAvaibleStock = async(req, res) => {
-    const {cropName, feildId} = req.body
+const getAvaibleStock = async (req, res) => { 
+    try {
+        const userId = req.user._id; // Get userId from request
 
-    const crop = await Crop.find({
-        $and: [{cropName}, {feildId}, {farmerId: req.user._id}]
-    })
+        const stocks = await Stock.find()
+            .populate({
+                path: 'crop',
+                model: Crop,
+                match: { farmerId: userId }, // Filter crops by the logged-in user's ID
+                populate: {
+                    path: 'feildId',
+                    model: Feild,
+                    match: { farmerId: userId } // Filter fields by the logged-in user's ID
+                }
+            })
+            .populate({
+                path: 'feild',
+                match: { farmerId: userId } // Filter fields by the logged-in user's ID
+            });
 
-    if(!crop) {
-        return res.status(401)
-        .json({
-            message: "Invalid data"
-        })
+        // Filter out stocks where crops or fields don't match the userId
+        const filteredStocks = stocks.filter(stock => stock.crop && stock.feild);
+
+        return res.status(200).json({ stocks: filteredStocks });
+    } catch (error) {
+        console.log("Error in getAvailableStock", error);
+        return res.status(500).json({ error: error.message });
     }
 
-    const stock = await Stock.findOne({
-        $and: [{crop: crop._id}, {feild: feildId}]
-    })
-
-    const feild = await Feild.findById(feildId)
-
-    if(!stock) {
-        return res.status(401)
-        .json({
-            message: "Stock not avaible"
-        })
-    } else {
-        return res.status(401)
-        .json({
-            stock,
-            crop,
-            feild,
-            message: "Stock fetched successfully"
-        })
-    }
 }
 
 export {addCrop, uploadCropImage, updateCropDetails, getCrops, getCropById, getAvaibleStock, getCropByIdFromBody}

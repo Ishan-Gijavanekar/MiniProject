@@ -8,6 +8,7 @@ export const useCropStore = create((set) => ({
   crops: [],
   isLoading: false,
   error: null,
+  stocks: [],
 
   fetchCrops: async () => {
     set({ isLoading: true });
@@ -90,14 +91,20 @@ export const useCropStore = create((set) => ({
     }
   },
 
-  uploadCropImage: async (id, cropImage) => {
+  uploadCropImage: async (farmId, cropId, cropImage) => {
     set({ isLoading: true });
     try {
-      const response = await axios.post(`${baseUrl}/upload-crop-image/${id}`, { cropImage });
+      const response = await axios.patch(`${baseUrl}/upload-crop-image`, {
+        farmId,
+        cropId,
+        cropImage
+      });
+  
       set((state) => ({
-        crops: state.crops.map((crop) => (crop._id === id ? response.data.uploadImage : crop)),
+        crops: state.crops.map((crop) => (crop._id === cropId ? response.data.uploadImage : crop)),
         isLoading: false,
       }));
+  
       alert("Image Uploaded Successfully");
     } catch (error) {
       set({ error: error.message, isLoading: false });
@@ -105,13 +112,15 @@ export const useCropStore = create((set) => ({
       alert("Error");
     }
   },
+  
 
-  getAvailableStock: async (cropName, feildId) => {
+  getAvailableStock: async () => {
     set({ isLoading: true });
     try {
-      const response = await axios.post(`${baseUrl}/get-available-stock`, { cropName, feildId });
-      set({ isLoading: false });
-      return response.data;
+      const response = await axios.get(`${baseUrl}/get-stock`);
+      set({stocks: response.data.stocks , isLoading: false });
+      return response.data.stocks;
+      alert("Stock Retrived successfully")
     } catch (error) {
       set({ error: error.message, isLoading: false });
       console.log(error);

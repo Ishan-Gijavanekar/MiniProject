@@ -28,9 +28,9 @@ const Sidebar = () => {
       <nav className="flex flex-col h-full py-4">
         <SidebarLink to="/homepage/add-field" icon={<PlusCircle />} text="Add Field" isOpen={isOpen} />
         <SidebarLink to="/homepage/add-crop" icon={<Leaf />} text="Add Crop" isOpen={isOpen} />
-        <SidebarLink to="/update-status" icon={<RefreshCw />} text="Update/Status" isOpen={isOpen} />
+        <SidebarLink to="/homepage/update-status" icon={<RefreshCw />} text="Update/Status" isOpen={isOpen} />
         <SidebarLink to="/delete" icon={<Trash2 />} text="Delete" isOpen={isOpen} />
-        <SidebarLink to="/present-stock" icon={<Package />} text="Present Stock" isOpen={isOpen} />
+        <SidebarLink to="/homepage/present-stock" icon={<Package />} text="Present Stock" isOpen={isOpen} />
         <SidebarLink to="/upload-image" icon={<Upload />} text="Upload Image" isOpen={isOpen} />
         <SidebarLink to="/settings" icon={<Settings />} text="Settings" isOpen={isOpen} />
       </nav>
