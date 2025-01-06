@@ -13,7 +13,7 @@ export const useAuthStore = create((set, get) => ({
       set({isLoading: true})
       try {
         const res = await axiosInstance.get(`${baseUrl}/get-user`)
-        set({userAuth: res.data})
+        set({userAuth: res.data.user})
       } catch (error) {
         console.log("Error in checkAuth: ", error)
         set({userAuth: null})
@@ -41,6 +41,8 @@ export const useAuthStore = create((set, get) => ({
       try {
         const res = await axiosInstance.post(`${baseUrl}/login`, data)
         set({userAuth: res.data})
+        //console.log(userAuth)
+        return res.data
         toast.success("Login Successfully")
       } catch (error) {
         console.log("Error in login: ", error)
@@ -59,6 +61,53 @@ export const useAuthStore = create((set, get) => ({
         console.log("Error in login: ", error)
         toast.error(error.response.data.message)
       }
+    },
+
+    forgetPassword: async(data) => {
+      set({isLoading: true})
+      try {
+        const res = await axiosInstance.post(`${baseUrl}/forget-password`, data)
+        set({userAuth: res.data.updatedUser})
+        toast.success(res.data.message)
+      } catch (error) {
+        console.log("Error in forgetPassword: ", error)
+        toast.error(error.response.data.message)
+      } finally {
+        set({isLoading: false})
+      }
+    },
+
+    updateProfilePic: async(data) => {
+      set({isLoading: true})
+      try {
+        const res = await axiosInstance.post(`${baseUrl}/update-profilePic`, data)
+        set({userAuth: res.data.updatedUser})
+        alert("Profile picture uploaded successfully")
+        toast.success(res.data.message)
+      } catch (error) {
+        console.log("Error in updateProfilePic: ", error)
+        alert(error.message)
+        toast.error(error.response.data.message)
+      } finally {
+        set({isLoading: false})
+      }
+    },
+
+    updateBackgroundPic: async(data) => {
+      set({isLoading: true})
+      try {
+        const res = await axiosInstance.post(`${baseUrl}/update-backgroundPic`, data)
+        set({userAuth: res.data.updatedUser})
+        alert("Image upload successfull")
+        toast.success(res.data.message)
+      } catch (error) {
+        console.log("Error in updateBackgroundPic: ", error)
+        alert(error.message)
+        toast.error(error.response.data.message)
+      } finally {
+        set({isLoading: false})
+      }
     }
+
 
 }))

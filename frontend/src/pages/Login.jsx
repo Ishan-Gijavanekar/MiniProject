@@ -14,7 +14,11 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const res = await login({ email, password });
-    navigate("/homepage/feilds")
+    if(res.type == "Farmer"){
+      navigate("/homepage/feilds")
+    } else if (res.type == "Vendor") {
+      navigate("/homepageVendor")
+    }
   };
 
   return (

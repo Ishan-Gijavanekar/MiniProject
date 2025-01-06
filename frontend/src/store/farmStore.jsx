@@ -36,23 +36,27 @@ export const useFarmStore = create((set) => ({
   updateField: async (id, updatedField) => {
     set({ isLoading: true });
     try {
-      const response = await axios.put(`${baseUrl}/update-fields/${id}`, updatedField);  // Updated endpoint
+      const response = await axios.patch(`${baseUrl}/update-feild/${id}`, updatedField);  // Updated endpoint
       set((state) => ({
         fields: state.fields.map((field) => (field._id === id ? response.data.updatedField : field)),
         isLoading: false,
       }));
+      alert("Field updated successfully")
     } catch (error) {
       set({ error: error.message, isLoading: false });
+      alert("Error")
     }
   },
 
   deleteField: async (id) => {
     set({ isLoading: true });
     try {
-      await axios.delete(`${baseUrl}/delete-field/${id}`);  // Updated endpoint
+      await axios.delete(`${baseUrl}/delete-feild/${id}`, {withCredentials: true});  // Updated endpoint
       set((state) => ({ fields: state.fields.filter((field) => field._id !== id), isLoading: false }));
+      alert("Deletion successfull")
     } catch (error) {
       set({ error: error.message, isLoading: false });
+      alert(error.message)
     }
   },
 

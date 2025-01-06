@@ -119,7 +119,13 @@ const updateCropDetails = async(req, res) => {
         const updateDetails = await Crop.findByIdAndUpdate(
             id,
             {
-                $set: {cropName, variety, plantingDate, harvestDate, growthStage, quantity, price}
+                cropName, 
+                variety, 
+                plantingDate, 
+                harvestDate, 
+                growthStage, 
+                quantity, 
+                price
             },
             {
                 new: true
@@ -154,17 +160,21 @@ const getCrops = async (req, res) => {
 }
 
 const getCropById = async (req, res) => {
-    try {
-        const {id} = req.params
-        const crop = await Crop.findById(id)
-
+    try { 
+        const { id } = req.params; 
+        const crop = await Crop.findById(id) 
+        .populate('feildId') 
+        .populate('farmerId'); 
+        
+        if (!crop) { 
+            return res.status(404).json({ message: "Crop not found" }); 
+        } 
+        
         res.status(200)
-        .json({
-            crop
-        })
-    } catch (error) {
-        console.log("Error in getting crop by id ", error.message)
-        res.status(500).json({message: "Internal server error"})
+        .json({ crop }); 
+    } catch (error) { 
+        console.log("Error in getting crop by id ", error.message); 
+        res.status(500).json({ message: "Internal server error" }); 
     }
 }
 

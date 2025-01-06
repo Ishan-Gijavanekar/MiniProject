@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Leaf, Edit2, Eye } from 'lucide-react';
+import { Leaf, Edit2, Eye, Trash2 } from 'lucide-react'; // Import the Trash2 icon
 import { useCropStore } from '../store/cropStore'; // Adjust import path according to your project structure
+import { useNavigate } from 'react-router-dom';
 
 const CropCard = ({ id }) => {
   const { getCropByIdFromBody, isLoading, error } = useCropStore();
   const [crop, setCrop] = useState(null);
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     const fetchData = async () => {
-      const cropData = await getCropByIdFromBody({id});
+      const cropData = await getCropByIdFromBody({ id });
       setCrop(cropData);
     };
 
@@ -17,10 +20,16 @@ const CropCard = ({ id }) => {
 
   const onUpdate = () => {
     // Update logic here
+    navigate(`/homepage/update-details/${crop._id}`)
   };
 
   const onViewDetails = () => {
+    navigate(`/homepage/crop-details/${crop._id}`)
     // View details logic here
+  };
+
+  const onDelete = () => {
+    // Delete logic here
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -58,6 +67,13 @@ const CropCard = ({ id }) => {
         >
           <Eye className="w-4 h-4 mr-2" />
           View Details
+        </button>
+        <button
+          onClick={onDelete}
+          className="flex items-center px-3 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+        >
+          <Trash2 className="w-4 h-4 mr-2" />
+          Delete
         </button>
       </div>
     </div>

@@ -15,19 +15,34 @@ import AboutPageFarmer from "./pages/AboutFarmer";
 import ServicesPage from "./pages/ServicesPageFarmer";
 import { UploadCropImageForm } from "./pages/UpdateCropImage";
 import Stock from "./pages/Stock";
+import { useAuthStore } from "./store/authStore";
+import LayoutVendor from "./pages/LayoutVendor";
+import EditField from "./pages/EditField";
+import CropDetails from "./components/CropDetailsCard";
+import UpdateCropForm from "./pages/UpdateCrop";
+import ProfilePage from "./pages/Profile";
 function App() {
   const [count, setCount] = useState(0);
+
+  const {userAuth} = useAuthStore()
 
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/homepage" element={<Layout />}>
+          <Route path="/homepageVendor" element= {<LayoutVendor />}>
+
+          </Route>
+          <Route path="/homepage" element={<Layout /> }>
             <Route path="/homepage/feilds" element={<FieldList />} />
             <Route path="/homepage/about" element={<AboutPageFarmer />} />
+            <Route path="/homepage/crop-details/:id" element={<CropDetails />} />
+            <Route path="/homepage/update-details/:id" element={<UpdateCropForm />} />
+            <Route path="/homepage/edit-field/:id" element={<EditField />} />
             <Route path="/homepage/update-status" element={<UploadCropImageForm />} />
             <Route path="/homepage/present-stock" element={<Stock />} />
+            <Route path="/homepage/settings" element={<ProfilePage />} />
             <Route path="/homepage/services" element={<ServicesPage />} />
             <Route path="/homepage/contact" element={<ContactUs />} />
             <Route path="/homepage/feild/:id" element={<FieldDetails />} />

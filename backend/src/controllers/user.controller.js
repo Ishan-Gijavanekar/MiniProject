@@ -168,7 +168,7 @@ const updateProfilePic = async(req, res) => {
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             {
-                $set: {profilePic:imageUrl},
+                profilePic:imageUrl,
             },
             {
                 new: true
@@ -206,7 +206,7 @@ const updateBackgoundPic = async(req, res) => {
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             {
-                $set: {background:imageUrl},
+                background:imageUrl,
             },
             {
                 new: true

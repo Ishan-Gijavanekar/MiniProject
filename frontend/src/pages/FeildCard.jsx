@@ -1,15 +1,22 @@
 import React from 'react';
 import { MapPin, Maximize, Droplet, Mountain, Edit2, Trash2, Eye } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useFarmStore } from '../store/farmStore';
 
 const FieldCard = ({ field }) => {
 
+  const navigate = useNavigate()
+
+  const {deleteField} = useFarmStore()
+
   const onEdit = () => {
     // Edit logic here
+    navigate(`/homepage/edit-field/${field._id}`)
   };
 
-  const onDelete = () => {
+  const onDelete = async() => {
     // Delete logic here
+    await deleteField(field._id)
   };
 
   return (

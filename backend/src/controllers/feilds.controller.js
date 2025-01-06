@@ -1,3 +1,4 @@
+import { Crop } from "../models/crop.model.js"
 import { Feild } from "../models/feild.model.js"
 import mongoose from "mongoose"
 
@@ -86,7 +87,7 @@ const getFeildCrops = async(req, res) => {
 
 const updateFeids = async(req, res) => {
     try {
-        const feildId = req.params
+        const {id} = req.params
     
         const {feildName, size, location, soilType, irrigationSystem} = req.body
     
@@ -97,9 +98,13 @@ const updateFeids = async(req, res) => {
         }
     
         const updatedFeild = await Feild.findByIdAndUpdate(
-            feildId,
+            id,
             {
-                $set: {feildName, size, location, soilType, irrigationSystem}
+                feildName, 
+                size, 
+                location, 
+                soilType, 
+                irrigationSystem
             },
             {
                 new: true
@@ -152,7 +157,31 @@ const getFeildById = async (req, res) => {
     }
 };
 
+const deletefeild = async (req, res) => {
+    try {
+        const {id} = req.params
+
+        const crops = await Crop.find({feildId: id})
+
+        if(crops.length > 0) {
+            return res.status(401)
+            .json({
+                message: "It has crops in it please delete it first"
+            })
+        }
+
+        await Feild.findByIdAndDelete(id)
+
+        return res.status(200)
+        .json({
+            message: "Field deleted successfully"
+        })
+    } catch (error) {
+        console.log("Error in delete field ", error)
+        res.status(500).json({message: "Internal server error"})
+    }
+}
 
 
 
-export {addFeild, getFeilds, getFeildCrops, updateFeids, getFeildById}
+export {addFeild, getFeilds, getFeildCrops, updateFeids, getFeildById, deletefeild}

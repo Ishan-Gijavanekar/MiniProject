@@ -36,13 +36,15 @@ export const useCropStore = create((set) => ({
   updateCrop: async (id, updatedCrop) => {
     set({ isLoading: true });
     try {
-      const response = await axios.put(`${baseUrl}/update-crop/${id}`, updatedCrop);
+      const response = await axios.patch(`${baseUrl}/update-crop/${id}`, updatedCrop);
       set((state) => ({
         crops: state.crops.map((crop) => (crop._id === id ? response.data.updateDetails : crop)),
         isLoading: false,
       }));
+      alert("Updated successfully")
     } catch (error) {
       set({ error: error.message, isLoading: false });
+      alert(error.message)
     }
   },
 
@@ -59,7 +61,7 @@ export const useCropStore = create((set) => ({
   getCropById: async (id) => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/get-crop-by-id/${id}`);
+      const response = await axios.get(`${baseUrl}/get-crop/${id}`);
       set((state) => ({
         crops: [...state.crops.filter((crop) => crop._id !== id), response.data.crop],
         isLoading: false,

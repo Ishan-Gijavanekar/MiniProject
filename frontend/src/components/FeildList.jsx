@@ -1,15 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFarmStore } from "../store/farmStore";
 import FieldCard from "../pages/FeildCard";
 
 const FieldList = () => {
-  const { fields, fetchFields } = useFarmStore();
+  const { fields, fetchFields, isLoading } = useFarmStore();
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchFields();
+    const fetchFieldData = async () => {
+      await fetchFields();
+      setLoading(false);
+    };
+    fetchFieldData();
   }, [fetchFields]);
 
-  console.log(fields)
+  if (loading || isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex flex-wrap justify-start m-2 gap-y-4">
