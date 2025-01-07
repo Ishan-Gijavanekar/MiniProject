@@ -18,6 +18,10 @@ const LoginPage = () => {
       navigate("/homepage/feilds")
     } else if (res.type == "Vendor") {
       navigate("/homepageVendor")
+    } else if (res.type == "Logistics") {
+      navigate("/homepageTransport/transports")
+    } else {
+      alert("Invalid Access")
     }
   };
 

@@ -21,6 +21,10 @@ import EditField from "./pages/EditField";
 import CropDetails from "./components/CropDetailsCard";
 import UpdateCropForm from "./pages/UpdateCrop";
 import ProfilePage from "./pages/Profile";
+import LayoutTransport from "./pages/LayoutTransport";
+import AddTransportForm from "./pages/AddTransport";
+import TransportList from "./components/TransportList";
+import AboutPageTransport from "./pages/AboutTransport";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -32,6 +36,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/homepageVendor" element= {<LayoutVendor />}>
+
+          </Route>
+          <Route path="/homepageTransport" element= {<LayoutTransport />}>
+          <Route path="/homepageTransport/add-transport" element={<AddTransportForm />}/>
+          <Route path="/homepageTransport/transports" element= {<TransportList />}></Route>
+          <Route path="/homepageTransport/about" element= {< AboutPageTransport />}></Route>
 
           </Route>
           <Route path="/homepage" element={<Layout /> }>
