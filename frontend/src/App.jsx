@@ -25,6 +25,12 @@ import LayoutTransport from "./pages/LayoutTransport";
 import AddTransportForm from "./pages/AddTransport";
 import TransportList from "./components/TransportList";
 import AboutPageTransport from "./pages/AboutTransport";
+import AddVehicleForm from "./pages/AddVechile";
+import VehiclesList from "./components/VechileList";
+import UploadVehicleForm from "./pages/UplodVechileImage";
+import VechileList from "./components/GetallVehicleList";
+import ServicesPageLogistics from "./pages/ServicesTransport";
+import EditVechileForm from "./pages/UpdateVehicle";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -42,7 +48,14 @@ function App() {
           <Route path="/homepageTransport/add-transport" element={<AddTransportForm />}/>
           <Route path="/homepageTransport/transports" element= {<TransportList />}></Route>
           <Route path="/homepageTransport/about" element= {< AboutPageTransport />}></Route>
-
+          <Route path="/homepageTransport/add-vechile/:id" element= {< AddVehicleForm />}></Route>
+          <Route path="/homepageTransport/get-vechile/:id" element= {< VehiclesList />}></Route>
+          <Route path="/homepageTransport/upload-image" element= {< UploadVehicleForm />}></Route>
+          <Route path="/homepageTransport/present-vechiles-avaible" element= {< VechileList />}></Route>
+          <Route path="/homepageTransport/settings" element= {< ProfilePage />}></Route>
+          <Route path="/homepageTransport/services" element= {< ServicesPageLogistics />}></Route>
+          <Route path="/homepageTransport/contact" element= {< ContactUs />}></Route>
+          <Route path="/homepageTransport/update-vehicle/:id" element= {< EditVechileForm />}></Route>
           </Route>
           <Route path="/homepage" element={<Layout /> }>
             <Route path="/homepage/feilds" element={<FieldList />} />

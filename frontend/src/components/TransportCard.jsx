@@ -1,13 +1,18 @@
 import React from 'react';
 import { Building2, MapPin, Plus, Eye, Truck } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const CompanyDetailsCard = ({ transport }) => {
-    const onAddVehicle = () => {
 
+    const navigate  = useNavigate()
+
+
+    const onAddVehicle = () => {
+      navigate(`/homepageTransport/add-vechile/${transport._id}`)
     }
     
     const onViewVehicles = () => { 
-
+      navigate(`/homepageTransport/get-vechile/${transport._id}`)
     }
     const onViewDetails = () => { 
 

@@ -27,8 +27,6 @@ const SidebarTransport = () => {
       </button>
       <nav className="flex flex-col h-full py-4">
         <SidebarLink to="/homepageTransport/add-transport" icon={<PlusCircle />} text="Add Transport" isOpen={isOpen} />
-        <SidebarLink to="/homepageTransport/add-vechile" icon={<Truck />} text="Add Vechile" isOpen={isOpen} />
-        <SidebarLink to="/homepageTransport/update-status" icon={<RefreshCw />} text="Image upload" isOpen={isOpen} />
         <SidebarLink to="/homepageTransport/present-vechiles-avaible" icon={<TruckIcon />} text="Avaible Vechiles" isOpen={isOpen} />
         <SidebarLink to="/homepageTransport/upload-image" icon={<Upload />} text="Upload Image" isOpen={isOpen} />
         <SidebarLink to="/homepageTransport/settings" icon={<Settings />} text="Settings" isOpen={isOpen} />

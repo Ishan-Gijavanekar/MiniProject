@@ -5,10 +5,10 @@ import cloudinary from "../utils/cloudinary.js"
 
 const addVechile = async (req, res) => {
     try {
-        const {vechileNumber, vechileName, capacity, cost} = req.body
+        const {vehicleNumber, vehicleName, capacity, cost} = req.body
         const {id} = req.params
 
-        if (!vechileName || !vechileNumber || !capacity || !cost) {
+        if (!vehicleName || !vehicleNumber || !capacity || !cost) {
             return res.status(401)
             .json({
                 message: "All feilds are required"
@@ -23,8 +23,8 @@ const addVechile = async (req, res) => {
         }
 
         const newVechile = await new Vechile({
-            vechileName,
-            vechileNumber,
+            vehicleName,
+            vehicleNumber,
             capacity,
             cost,
             transporter: id,
@@ -54,9 +54,9 @@ const addVechile = async (req, res) => {
 
 const uploadVechileImage = async(req, res) => {
     try {
-        const {image, vechileName, vechileNumber} = req.body
+        const {image, vehicleName, vehicleNumber} = req.body
     
-        if (!image || !vechileName || !vechileNumber) {
+        if (!image || !vehicleName || !vehicleNumber) {
             return res.status(401)
             .json({
                 message: "All the feilds are required"
@@ -64,7 +64,7 @@ const uploadVechileImage = async(req, res) => {
         }
     
         const vechile = await Vechile.findOne({
-            $and: [{vechileName}, {vechileNumber}]
+            $and: [{vehicleName}, {vehicleNumber}]
         })
     
         if(!vechile) {
@@ -80,7 +80,7 @@ const uploadVechileImage = async(req, res) => {
         const updateImage = await Vechile.findByIdAndUpdate(
             vechile._id,
             {
-                $set: {image: imageUrl}
+                image: imageUrl
             },
             {
                 new: true,
@@ -108,9 +108,9 @@ const uploadVechileImage = async(req, res) => {
 const updateDetails = async (req, res) => {
     try {
         const {id} = req.params
-        const {vechileNumber, vechileName, cost, capacity} = req.body
+        const {vehicleNumber, vehicleName, cost, capacity} = req.body
 
-        if (!vechileName || !vechileNumber || !cost || !capacity) {
+        if (!vehicleName || !vehicleNumber || !cost || !capacity) {
             return res.status(401)
             .json({
                 message: "All feilds are required"
@@ -120,7 +120,10 @@ const updateDetails = async (req, res) => {
         const updateVechile = await Vechile.findByIdAndUpdate(
             id,
             {
-                $set: {vechileName, vechileNumber, cost, capacity}
+                vehicleName, 
+                vehicleNumber, 
+                cost, 
+                capacity
             },
             {
                 new: true
@@ -154,6 +157,47 @@ const getVechiles = async (req, res) => {
     } catch (error) {
         console.log("Error in getting vechiles ", error.message)
         res.status(500).json({message: "Internal server error"})
+    }
+}
+
+const getVechileById = async(req, res) => {
+    try {
+        const {id} = req.params
+    
+        const vechiles = await Vechile.findById(id)
+    
+        if(vechiles.length < 0) {
+            return res.status(401)
+            .json({message: "No Vechile Found"})
+        }
+    
+        return res.status(200)
+        .json({
+            vechiles,
+            message: "Vechile fetched successfully"
+        })
+    } catch (error) {
+        console.leg("Error in get vechile by id ", error)
+        res.status(500).json({message: "Internal server error"})
+    }
+}
+
+const getAllVechiles = async (req, res) => {
+    try {
+        const vechiles = await Vechile.find();
+
+        if (vechiles.length == 0) {
+            return res.status(401)
+            .json({message: "No Vechiles"})
+        }  
+
+        res.status(200)
+        .json({
+            vechiles,
+            message: "Vehicles fetched"
+        })
+    } catch (error) {
+        
     }
 }
 
@@ -202,4 +246,4 @@ const bookVechile = async (req, res) => {
     }
 }
 
-export {addVechile, uploadVechileImage, updateDetails, getVechiles, deleteVechiles, bookVechile}
+export {addVechile, uploadVechileImage, updateDetails, getVechiles, deleteVechiles, bookVechile, getVechileById, getAllVechiles}

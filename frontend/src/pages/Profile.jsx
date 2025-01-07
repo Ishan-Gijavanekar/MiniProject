@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthStore } from '../store/authStore';
 import { toast } from 'react-hot-toast';
-import { Camera, CameraIcon } from 'lucide-react';
+import { Camera, Mail, User, Briefcase } from 'lucide-react';
 
 export default function ProfilePage() {
   const { checkAuth, userAuth, updateProfilePic, updateBackgroundPic } = useAuthStore();
@@ -54,53 +54,69 @@ export default function ProfilePage() {
   };
 
   if (!userAuth) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center min-h-screen text-lg font-semibold text-gray-600">Loading...</div>;
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white shadow-md rounded-lg overflow-hidden w-full max-w-2xl">
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 flex items-center justify-center p-4">
+      <div className="bg-white shadow-xl rounded-2xl overflow-hidden w-full max-w-3xl">
         <div className="relative">
           <img
             src={background || '/defaultBackground.jpg'}
             alt="Background"
-            className="w-full h-48 object-cover"
+            className="w-full h-64 object-cover"
           />
           <input
             type="file"
             accept="image/*"
-            className="absolute top-0 right-0 m-4 opacity-0 cursor-pointer w-full h-48"
+            className="absolute inset-0 opacity-0 cursor-pointer"
             onChange={handleBackgroundChange}
           />
-          <div className="absolute top-0 right-0 m-4 bg-black bg-opacity-50 p-1 rounded text-white cursor-pointer text-sm">
-            <Camera />
+          <div className="absolute top-4 right-4 bg-black bg-opacity-50 p-2 rounded-full text-white cursor-pointer hover:bg-opacity-70 transition-all duration-300">
+            <Camera className="w-5 h-5" />
           </div>
         </div>
-        <div className="p-6 flex flex-col items-center">
-          <div className="relative mb-4">
-            <img
-              src={profilePic || '/defaultUser.jpg'}
-              alt="Profile"
-              className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
-            />
-            <input
-              type="file"
-              accept="image/*"
-              className="absolute top-0 left-0 w-24 h-24 opacity-0 cursor-pointer"
-              onChange={handleProfilePicChange}
-            />
-            <div className="absolute bottom-0 left-0 w-24 bg-black bg-opacity-50 text-center rounded text-white cursor-pointer text-sm py-1">
-                <Camera />
+        <div className="relative px-6 pb-6 -mt-20">
+          <div className="flex flex-col sm:flex-row items-center sm:items-end space-y-4 sm:space-y-0 sm:space-x-6">
+            <div className="relative">
+              <img
+                src={profilePic || '/defaultUser.jpg'}
+                alt="Profile"
+                className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                className="absolute inset-0 opacity-0 cursor-pointer rounded-full"
+                onChange={handleProfilePicChange}
+              />
+              <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 p-2 rounded-full text-white cursor-pointer hover:bg-opacity-70 transition-all duration-300">
+                <Camera className="w-4 h-4" />
+              </div>
+            </div>
+            <div className="text-center sm:text-left">
+              <h2 className="text-3xl font-bold text-gray-800">{userAuth.fullName}</h2>
+              <p className="text-lg text-gray-600">{userAuth.type}</p>
             </div>
           </div>
-          <div className="text-center mt-4">
-            <h2 className="text-2xl font-semibold text-gray-800">Full Name: {userAuth.fullName}</h2>
-            <p className="text-gray-600">Role: {userAuth.type}</p>
-            <p className="text-gray-600">Email: {userAuth.email}</p>
-            <p className="text-gray-600">Username: {userAuth.username}</p>
+        </div>
+        <div className="px-6 py-6 bg-gray-50">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex items-center space-x-3 text-gray-700">
+              <Mail className="w-5 h-5 text-gray-500" />
+              <span>{userAuth.email}</span>
+            </div>
+            <div className="flex items-center space-x-3 text-gray-700">
+              <User className="w-5 h-5 text-gray-500" />
+              <span>{userAuth.username}</span>
+            </div>
+            <div className="flex items-center space-x-3 text-gray-700">
+              <Briefcase className="w-5 h-5 text-gray-500" />
+              <span>{userAuth.type}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>
+  );
 }

@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 
 const vechileSchema = new mongoose.Schema({
-    vechileNumber: {
+    vehicleNumber: {
         type: String,
         required: true,
-        unique: true,
     },
-    vechileName: {
+    vehicleName: {
         type: String,
         required: true,
     },

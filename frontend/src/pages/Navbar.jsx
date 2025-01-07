@@ -70,16 +70,16 @@ const Navbar = () => {
           className="md:hidden"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <NavLink to="/" mobile>
+            <NavLink to="/homepage/feilds" mobile>
               Home
             </NavLink>
-            <NavLink to="/about" mobile>
+            <NavLink to="/homepage/about" mobile>
               About
             </NavLink>
-            <NavLink to="/services" mobile>
+            <NavLink to="/homepage/services" mobile>
               Services
             </NavLink>
-            <NavLink to="/contact" mobile>
+            <NavLink to="/homepage/contact" mobile>
               Contact
             </NavLink>
           </div>

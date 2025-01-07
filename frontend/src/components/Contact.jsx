@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Mail, Phone, MapPin, User } from 'lucide-react';
 
 const ContactUs = () => {
     const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
@@ -30,143 +30,114 @@ const ContactUs = () => {
     
         if (res.success) {
           console.log("Success", res);
-          alert("We will get back to you Shortly")
+          setSubmitted(true);
         }
-      };
+    };
 
     return (
-        <div className="min-h-screen flex flex-col">
-            <main className="flex-grow bg-gray-100 p-6">
-                <div className="container mx-auto flex flex-col md:flex-row">
-                    <div className="w-full md:w-1/2 p-4">
-                        <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center md:text-left">Contact Us</h1>
-                        {submitted ? (
-                            <div className="text-center md:text-left">
-                                <h2 className="text-2xl text-green-600">Thank you for your message!</h2>
-                                <p>We will get back to you shortly.</p>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-12">
+                    <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                        Contact Us
+                    </h1>
+                    <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                        We'd love to hear from you. Please fill out this form or use our contact information.
+                    </p>
+                </div>
+
+                <div className="mt-10 sm:mt-0">
+                    <div className="md:grid md:grid-cols-2 md:gap-6">
+                        <div className="mt-5 md:mt-0 md:col-span-1">
+                            <div className="bg-white shadow-2xl overflow-hidden sm:rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                                <div className="px-4 py-5 sm:p-6">
+                                    <h3 className="text-lg font-medium leading-6 text-gray-900 mb-4">Contact Information</h3>
+                                    <div className="space-y-6">
+                                        <div className="flex items-center space-x-3 text-gray-700">
+                                            <Mail className="h-6 w-6 text-indigo-600" />
+                                            <span><strong>Email:</strong> isg.sachin@gmail.com</span>
+                                        </div>
+                                        <div className="flex items-center space-x-3 text-gray-700">
+                                            <Phone className="h-6 w-6 text-green-600" />
+                                            <span><strong>Phone:</strong> (+91) 8830368951</span>
+                                        </div>
+                                        <div className="flex items-start space-x-3 text-gray-700">
+                                            <MapPin className="h-6 w-6 text-red-600 mt-1" />
+                                            <span>
+                                                <strong>Branch office:</strong> Flat No. 008, Safalya Homes, 3<sup>rd</sup> Cross, Dwarka Nagar, Mandoli Road, Tilakwadi, Belagavi-590006
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <h3 className="text-lg font-medium leading-6 text-gray-900 mt-8 mb-4">Resource Persons</h3>
+                                    <div className="space-y-4">
+                                        {['Ishan Gijavanekar', 'Gururaj Kurbet', 'Atharv Kulkarni', 'Harsh Anvekar'].map((person, index) => (
+                                            <div key={index} className="flex items-center space-x-3 text-gray-700">
+                                                <User className="h-5 w-5 text-indigo-600" />
+                                                <span>{person}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
-                        ) : (
-                            <form onSubmit={onSubmit} className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200">
-                                <div className="mb-4">
-                                    <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        value={form.name}
-                                        onChange={handleChange}
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-                                        required
-                                    />
+                        </div>
+                        <div className="mt-5 md:mt-0 md:col-span-1">
+                            <div className="bg-white shadow-2xl sm:rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                                <div className="px-4 py-5 sm:p-6">
+                                    {submitted ? (
+                                        <div className="text-center">
+                                            <h2 className="text-2xl font-semibold text-green-600 mb-2">Thank you for your message!</h2>
+                                            <p className="text-gray-600">We will get back to you shortly.</p>
+                                        </div>
+                                    ) : (
+                                        <form onSubmit={onSubmit} className="space-y-6">
+                                            {['name', 'email', 'phone'].map((field) => (
+                                                <div key={field}>
+                                                    <label htmlFor={field} className="block text-sm font-medium text-gray-700 capitalize">
+                                                        {field}
+                                                    </label>
+                                                    <input
+                                                        type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+                                                        id={field}
+                                                        name={field}
+                                                        value={form[field]}
+                                                        onChange={handleChange}
+                                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                                                        required
+                                                    />
+                                                </div>
+                                            ))}
+                                            <div>
+                                                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                                                    Message
+                                                </label>
+                                                <textarea
+                                                    id="message"
+                                                    name="message"
+                                                    rows={4}
+                                                    value={form.message}
+                                                    onChange={handleChange}
+                                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out"
+                                                    required
+                                                ></textarea>
+                                            </div>
+                                            <div>
+                                                <button
+                                                    type="submit"
+                                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out transform hover:scale-105"
+                                                >
+                                                    Submit
+                                                </button>
+                                            </div>
+                                        </form>
+                                    )}
                                 </div>
-                                <div className="mb-4">
-                                    <label htmlFor="email" className="block text-gray-700 font-bold mb-2">Email</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={form.email}
-                                        onChange={handleChange}
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">Phone</label>
-                                    <input
-                                        type="tel"
-                                        id="phone"
-                                        name="phone"
-                                        value={form.phone}
-                                        onChange={handleChange}
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Message</label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        value={form.message}
-                                        onChange={handleChange}
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-                                        rows="4"
-                                        required
-                                    ></textarea>
-                                </div>
-                                <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
-                                    Submit
-                                </button>
-                            </form>
-                        )}
+                            </div>
+                        </div>
                     </div>
-                    <div className="w-full md:w-1/2 p-6 bg-white rounded-lg shadow-lg mt-8 md:mt-0 hover:shadow-xl transition-shadow duration-200">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-4">Contact Information</h2>
-                        <p className="text-gray-600 mb-4">Feel free to reach out to us through any of the following contacts:</p>
-                        <ul className="text-gray-600 space-y-4">
-                            <li className="flex items-center space-x-3">
-                                <svg className="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 8l-4-4m0 0l-4 4m4-4v12"></path>
-                                </svg>
-                                <span>
-                                    <strong>Email:</strong> isg.sachin@gmail.com
-                                </span>
-                            </li>
-                        <li className="flex items-center space-x-3">
-                            <svg className="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h2a3 3 0 013 3v2a3 3 0 01-3 3H3m0-8h2a3 3 0 013-3m0 8v2a3 3 0 013 3h8a3 3 0 003-3V8a3 3 0 00-3-3h-2M5 10a3 3 0 003 3m10-3v2a3 3 0 013 3m0 2a3 3 0 01-3 3"></path>
-                            </svg>
-                            <span>
-                                <strong>Phone:</strong> (+91) 8830368951
-                            </span>
-                        </li>
-                        <li className="flex items-center space-x-3">
-                            <svg className="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
-                            </svg>
-                            <span>
-                                <strong>Branch office:</strong> Flat No. 008, Safalya Homes, 3 <super>rd</super> Cross, Dwarka Nagar, Mandoli Road, Tilakwadi, Belagavi-590006
-                            </span>
-                        </li>
-                        <li className="flex items-center space-x-3">
-                            <svg className="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 11c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4 4 1.79 4 4zm0 0v1c0 2.21 1.79 4 4 4s4-1.79 4-4v-1m0-2v-3a3 3 0 00-3-3h-6a3 3 0 00-3 3v3"></path>
-                            </svg>
-                            <span>
-                                <strong>Resource Person:</strong> Ishan Gijavanekar
-                            </span>
-                        </li>
-                        <li className="flex items-center space-x-3">
-                            <svg className="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 11c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4 4 1.79 4 4zm0 0v1c0 2.21 1.79 4 4 4s4-1.79 4-4v-1m0-2v-3a3 3 0 00-3-3h-6a3 3 0 00-3 3v3"></path>
-                            </svg>
-                            <span>
-                                <strong>Resource Person:</strong> Gururaj Kurbet
-                            </span>
-                        </li>
-                        <li className="flex items-center space-x-3">
-                            <svg className="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 11c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4 4 1.79 4 4zm0 0v1c0 2.21 1.79 4 4 4s4-1.79 4-4v-1m0-2v-3a3 3 0 00-3-3h-6a3 3 0 00-3 3v3"></path>
-                            </svg>
-                            <span>
-                                <strong>Resource Person:</strong> Atharv Kulkarni
-                            </span>
-                        </li>
-                        <li className="flex items-center space-x-3">
-                            <svg className="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 11c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4 4 1.79 4 4zm0 0v1c0 2.21 1.79 4 4 4s4-1.79 4-4v-1m0-2v-3a3 3 0 00-3-3h-6a3 3 0 00-3 3v3"></path>
-                            </svg>
-                            <span>
-                                <strong>Resource Person:</strong> Harsh Anvekar
-                            </span>
-                        </li>
-                    </ul>
                 </div>
-                </div>
-            </main>
+            </div>
         </div>
     );
 };
 
-export default ContactUs;
+export default ContactUs;

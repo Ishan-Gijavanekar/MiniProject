@@ -38,8 +38,8 @@ const NavbarTransport = () => {
                 {/* Navigation links for larger screens */}
                 <NavLink to="/homepageTransport/transports">Home</NavLink>
                 <NavLink to="/homepageTransport/about">About</NavLink>
-                <NavLink to="/services">Services</NavLink>
-                <NavLink to="/contact">Contact</NavLink>
+                <NavLink to="/homepageTransport/services">Services</NavLink>
+                <NavLink to="/homepageTransport/contact">Contact</NavLink>
               </div>
             </div>
           </div>
