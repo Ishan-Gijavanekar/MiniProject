@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema({
         ref: "Vechile",
         required: true,
     },
-    tranport: {
+    transport: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Transport",
         required: true,
@@ -33,6 +33,18 @@ const orderSchema = new mongoose.Schema({
         default: "Order Placed"
     },
     quantity: {
+        type: Number,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    distance: {
         type: Number,
         required: true
     }

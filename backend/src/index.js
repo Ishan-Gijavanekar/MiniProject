@@ -10,6 +10,7 @@ import cropRoutes from './routes/crop.routes.js'
 import transportRoutes from './routes/transport.routes.js'
 import messageRoutes from './routes/message.routes.js'
 import vechileRoutes from './routes/vechile.routes.js'
+import orderRoutes from "./routes/order.routes.js"
 import { app, server } from './utils/socket.js'
 
 
@@ -33,6 +34,7 @@ app.use("/api/v1/crops", cropRoutes)
 app.use("/api/v1/transport", transportRoutes)
 app.use("/api/v1/messages", messageRoutes)
 app.use("/api/v1/vechiles", vechileRoutes)
+app.use("/api/v1/orders", orderRoutes)
 
 
 

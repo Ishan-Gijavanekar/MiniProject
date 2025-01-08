@@ -10,7 +10,7 @@ const routeSchema = new mongoose.Schema({
         required: true
     },
     distance: {
-        type: NUmber,
+        type: Number,
         required: true
     }
 },{ 

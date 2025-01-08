@@ -159,6 +159,22 @@ const getCrops = async (req, res) => {
     }
 }
 
+const getAllCrops = async (req, res) => {
+    try {
+        const userId = req.user._id
+
+        const crops = await Crop.find()
+
+        res.status(200)
+        .json({
+            crops
+        })
+    } catch (error) {
+        console.log("Error in getting all the crops: ", error.message)
+        res.status(500).json({message: "Internal server error"})
+    }
+}
+
 const getCropById = async (req, res) => {
     try { 
         const { id } = req.params; 
@@ -224,4 +240,4 @@ const getAvaibleStock = async (req, res) => {
 
 }
 
-export {addCrop, uploadCropImage, updateCropDetails, getCrops, getCropById, getAvaibleStock, getCropByIdFromBody}
+export {addCrop, uploadCropImage, updateCropDetails, getCrops, getCropById, getAvaibleStock, getCropByIdFromBody, getAllCrops}

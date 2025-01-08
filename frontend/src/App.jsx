@@ -39,6 +39,7 @@ function App() {
 
   useEffect(() => {
     checkAuth()
+    document.querySelector('html').setAttribute('data-theme', 'light')
   }, [checkAuth])
 
   return (
