@@ -59,7 +59,7 @@ export const useVechileStore = create((set) => ({
 
       set((state) => ({
         vechiles: [
-          ...state.vechiles.filter((vechile) => vechile._id !== id),
+          ...state.vechiles.filter((vechile) => vechile._id !== vechileId),
           response.data.vechiles,
         ],
         isLoading: false,

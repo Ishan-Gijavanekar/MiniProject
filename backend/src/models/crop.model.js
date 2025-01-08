@@ -21,7 +21,7 @@ const cropSchema = new mongoose.Schema({
     growthStage: {
         type: String,
         required: true,
-        enum: ["Seeding", "Vegetative", "Flowering", "Harvesting"]
+        enum: ["Seeding", "Vegatative", "Flowering", "Harvesting"]
     },
     feildId: {
         type: mongoose.Schema.Types.ObjectId,

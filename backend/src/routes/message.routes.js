@@ -7,7 +7,7 @@ const router = express.Router()
 
 // Message Routes
 router.route("/get-users").get(protctedRoute, getUsers)
-router.route("/get-messages").post(protctedRoute, getMessage)
+router.route("/get-messages/:id").post(protctedRoute, getMessage)
 router.route("/send-message/:id").post(protctedRoute, sendMessage)
 
 

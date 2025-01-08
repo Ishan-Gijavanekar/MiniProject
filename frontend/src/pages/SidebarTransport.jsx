@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, PlusCircle, Leaf, RefreshCw, Trash2, Package, Upload, Settings, Truck, TruckIcon } from 'lucide-react';
+import { ChevronLeft, ChevronRight, PlusCircle, Leaf, RefreshCw, Trash2, Package, Upload, Settings, Truck, TruckIcon, MessageSquare } from 'lucide-react';
 import { useSidebar } from '../customhooks/useSidebar';
 
 const SidebarTransport = () => {
@@ -30,6 +30,7 @@ const SidebarTransport = () => {
         <SidebarLink to="/homepageTransport/present-vechiles-avaible" icon={<TruckIcon />} text="Avaible Vechiles" isOpen={isOpen} />
         <SidebarLink to="/homepageTransport/upload-image" icon={<Upload />} text="Upload Image" isOpen={isOpen} />
         <SidebarLink to="/homepageTransport/settings" icon={<Settings />} text="Settings" isOpen={isOpen} />
+        <SidebarLink to="/homepageTransport/chat-application" icon={<MessageSquare />} text="Chat Applications" isOpen={isOpen} />
       </nav>
     </motion.div>
   );

@@ -10,10 +10,11 @@ import cropRoutes from './routes/crop.routes.js'
 import transportRoutes from './routes/transport.routes.js'
 import messageRoutes from './routes/message.routes.js'
 import vechileRoutes from './routes/vechile.routes.js'
+import { app, server } from './utils/socket.js'
 
 
 const port = process.env.PORT;
-const app = express()
+
 
 // Middlewares
 app.use(express.json({limit: "50mb"}))
@@ -35,7 +36,7 @@ app.use("/api/v1/vechiles", vechileRoutes)
 
 
 
-app.listen(port, () => {
+server.listen(port, () => {
     connectDb()
     console.log(`Server is running on port ${port}`)
 })

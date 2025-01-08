@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, PlusCircle, Leaf, RefreshCw, Trash2, Package, Upload, Settings } from 'lucide-react';
+import { ChevronLeft, ChevronRight, PlusCircle, Leaf, RefreshCw, Trash2, Package, Upload, Settings, MessagesSquareIcon } from 'lucide-react';
 import { useSidebar } from '../customhooks/useSidebar';
 
 const Sidebar = () => {
@@ -31,6 +31,7 @@ const Sidebar = () => {
         <SidebarLink to="/homepage/update-status" icon={<RefreshCw />} text="Update/Status" isOpen={isOpen} />
         <SidebarLink to="/homepage/present-stock" icon={<Package />} text="Present Stock" isOpen={isOpen} />
         <SidebarLink to="/homepage/settings" icon={<Settings />} text="Settings" isOpen={isOpen} />
+        <SidebarLink to="/homepage/chat-application" icon={<MessagesSquareIcon />} text="Chat Applications" isOpen={isOpen} />
       </nav>
     </motion.div>
   );

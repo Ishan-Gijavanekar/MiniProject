@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddField from "./pages/Addfeild";
 import AddCrop from "./pages/AddCrop";
 import { BrowserRouter, Router, Routes, Route } from "react-router-dom";
@@ -31,10 +31,15 @@ import UploadVehicleForm from "./pages/UplodVechileImage";
 import VechileList from "./components/GetallVehicleList";
 import ServicesPageLogistics from "./pages/ServicesTransport";
 import EditVechileForm from "./pages/UpdateVehicle";
+import HomeChat from "./pages/HomeChat";
 function App() {
   const [count, setCount] = useState(0);
 
-  const {userAuth} = useAuthStore()
+  const {userAuth, checkAuth} = useAuthStore()
+
+  useEffect(() => {
+    checkAuth()
+  }, [checkAuth])
 
   return (
     <>
@@ -56,6 +61,7 @@ function App() {
           <Route path="/homepageTransport/services" element= {< ServicesPageLogistics />}></Route>
           <Route path="/homepageTransport/contact" element= {< ContactUs />}></Route>
           <Route path="/homepageTransport/update-vehicle/:id" element= {< EditVechileForm />}></Route>
+          <Route path="/homepageTransport/chat-application" element= {< HomeChat />}></Route>
           </Route>
           <Route path="/homepage" element={<Layout /> }>
             <Route path="/homepage/feilds" element={<FieldList />} />
@@ -72,6 +78,7 @@ function App() {
             <Route path="/homepage/:id" element={<FieldCard />} />
             <Route path="/homepage/add-field" element={<AddField />} />
             <Route path="/homepage/add-crop" element={<AddCrop />} />
+            <Route path="/homepage/chat-application" element={<HomeChat />} />
           </Route>
 
           <Route path="/login" element={<Login />} />

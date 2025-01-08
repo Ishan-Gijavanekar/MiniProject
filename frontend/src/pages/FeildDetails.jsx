@@ -51,7 +51,7 @@ const FieldDetails = () => {
           </div>
           <div className="col-span-2">
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Crops:</h3>
-            <div className="space-y-4">
+            <div className="space-y-4 flex flex-wrap justify-center">
               {field.crops && field.crops.length > 0 ? (
                 field.crops.map((id) => (
                   <CropCard key={id} id={id} />

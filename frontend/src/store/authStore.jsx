@@ -1,19 +1,25 @@
 import {create} from 'zustand'
 import { axiosInstance } from '../utils/axios'
 import {toast} from 'react-hot-toast'
+import {io} from 'socket.io-client'
+import axios from 'axios'
 
 const baseUrl = "http://localhost:5000/api/v1/users"
+const baseUrl1 = "http://localhost:5000"
 
 export const useAuthStore = create((set, get) => ({
     userAuth: null,
     isLoading: false,
+    socket:null,
+    onlineUsers: [],
 
 
     checkAuth: async() => {
       set({isLoading: true})
       try {
-        const res = await axiosInstance.get(`${baseUrl}/get-user`)
+        const res = await axios.get(`${baseUrl}/get-user`)
         set({userAuth: res.data.user})
+        get().connectSocket()
       } catch (error) {
         console.log("Error in checkAuth: ", error)
         set({userAuth: null})
@@ -25,8 +31,9 @@ export const useAuthStore = create((set, get) => ({
     signup: async(data) => {
       set({isLoading: true})
       try {
-        const res = await axiosInstance.post(`${baseUrl}/register`, data)
+        const res = await axios.post(`${baseUrl}/register`, data)
         set({userAuth: res.data})
+        get().connectSocket()
         toast.success("User Registered Successfully")
       } catch (error) {
         console.log("Error in signup: ", error)
@@ -39,11 +46,14 @@ export const useAuthStore = create((set, get) => ({
     login: async(data) => {
       set({isLoading: true})
       try {
-        const res = await axiosInstance.post(`${baseUrl}/login`, data)
+        const res = await axios.post(`${baseUrl}/login`, data)
         set({userAuth: res.data})
         //console.log(userAuth)
-        return res.data
+        get().connectSocket()
         toast.success("Login Successfully")
+        return res.data
+        
+        
       } catch (error) {
         console.log("Error in login: ", error)
         toast.error(error.response.data.message)
@@ -54,8 +64,9 @@ export const useAuthStore = create((set, get) => ({
 
     logout: async() => {
       try {
-        const res = await axiosInstance.post(`${baseUrl}/logout`)
+        const res = await axios.post(`${baseUrl}/logout`)
         set({userAuth: null})
+        get().disconnectSocket()
         toast.success("Logout Successfully")
       } catch (error) {
         console.log("Error in login: ", error)
@@ -66,7 +77,7 @@ export const useAuthStore = create((set, get) => ({
     forgetPassword: async(data) => {
       set({isLoading: true})
       try {
-        const res = await axiosInstance.post(`${baseUrl}/forget-password`, data)
+        const res = await axios.post(`${baseUrl}/forget-password`, data)
         set({userAuth: res.data.updatedUser})
         toast.success(res.data.message)
       } catch (error) {
@@ -80,7 +91,7 @@ export const useAuthStore = create((set, get) => ({
     updateProfilePic: async(data) => {
       set({isLoading: true})
       try {
-        const res = await axiosInstance.post(`${baseUrl}/update-profilePic`, data)
+        const res = await axios.post(`${baseUrl}/update-profilePic`, data)
         set({userAuth: res.data.updatedUser})
         alert("Profile picture uploaded successfully")
         toast.success(res.data.message)
@@ -96,7 +107,7 @@ export const useAuthStore = create((set, get) => ({
     updateBackgroundPic: async(data) => {
       set({isLoading: true})
       try {
-        const res = await axiosInstance.post(`${baseUrl}/update-backgroundPic`, data)
+        const res = await axios.post(`${baseUrl}/update-backgroundPic`, data)
         set({userAuth: res.data.updatedUser})
         alert("Image upload successfull")
         toast.success(res.data.message)
@@ -107,7 +118,31 @@ export const useAuthStore = create((set, get) => ({
       } finally {
         set({isLoading: false})
       }
-    }
+    },
+
+    connectSocket: () => {
+      const {userAuth} = get()
+      if(!userAuth || get().socket?.connected) {
+          return
+      }
+      const socket = io(baseUrl1, {
+          query: {
+              userId: userAuth._id,
+          }
+      })
+      socket.connect()
+      set({socket:socket})
+      console.log(socket)
+      socket.on("getOnlineUsers", (userId) => {
+          set({onlineUsers:userId})
+      })
+  },
+
+  disconnectSocket: () => {
+      if(get().socket?.connected) {
+          get().socket.disconnect()
+      }
+  }
 
 
 }))
