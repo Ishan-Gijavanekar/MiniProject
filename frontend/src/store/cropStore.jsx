@@ -58,6 +58,22 @@ export const useCropStore = create((set) => ({
     }
   },
 
+  getAllCrops : async () => {
+    set({ isLoading: true });
+    try {
+      const response = await axios.get(`${baseUrl}/getAllCrops`);
+      set((state) => ({
+        crops: response.data.crops,
+        isLoading: false,
+      }));
+      return response.data.crop;
+    } catch (error) {
+      set({ error: error.message, isLoading: false });
+      console.log(error);
+      return null;
+    }
+  },
+
   getCropById: async (id) => {
     set({ isLoading: true });
     try {

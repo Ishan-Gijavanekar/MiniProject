@@ -66,9 +66,9 @@ const HomePage = () => {
             Your partner in assured contract farming. Connect with potential
             buyers, manage contracts seamlessly, and ensure timely payments.
           </p>
-          <button className="px-6 py-3 bg-blue-700 rounded text-white text-lg hover:bg-blue-800">
+          <Link to={"/login"} className="px-6 py-3 bg-blue-700 rounded text-white text-lg hover:bg-blue-800">
             Get Started
-          </button>
+          </Link>
         </div>
       </section>
 

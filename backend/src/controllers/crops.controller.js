@@ -164,6 +164,7 @@ const getAllCrops = async (req, res) => {
         const userId = req.user._id
 
         const crops = await Crop.find()
+        .populate("feildId")
 
         res.status(200)
         .json({

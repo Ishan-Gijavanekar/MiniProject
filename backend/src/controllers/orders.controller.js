@@ -2,11 +2,12 @@ import { Avaiblity } from "../models/avaibleVechile.model.js"
 import { Crop } from "../models/crop.model.js"
 import { Order } from "../models/order.model.js"
 import { Route } from "../models/route.model.js"
-import {GoogleGenerativeAI} from '@google/generative-ai'
 import { Vechile } from "../models/Vechile.model.js"
+import {GoogleGenerativeAI} from '@google/generative-ai'
 
 
-const genAi = new GoogleGenerativeAI(process.env.GEMINI_API_SECRET)
+
+ const genAi = new GoogleGenerativeAI(process.env.GEMINI_API_SECRET)
 
 const bookVechile = async (req, res) => {
     try {

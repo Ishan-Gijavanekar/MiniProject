@@ -32,6 +32,10 @@ import VechileList from "./components/GetallVehicleList";
 import ServicesPageLogistics from "./pages/ServicesTransport";
 import EditVechileForm from "./pages/UpdateVehicle";
 import HomeChat from "./pages/HomeChat";
+import OrderPage from "./pages/OrderPage";
+import { Toaster } from 'react-hot-toast'
+
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -48,7 +52,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/homepageVendor" element= {<LayoutVendor />}>
-
+          <Route path="/homepageVendor/order" element= {<OrderPage />}></Route>
           </Route>
           <Route path="/homepageTransport" element= {<LayoutTransport />}>
           <Route path="/homepageTransport/add-transport" element={<AddTransportForm />}/>
@@ -86,6 +90,8 @@ function App() {
           <Route path="/ForgotPasswordPage" element={<ForgotPasswordPage />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
+
+        <Toaster />
       </BrowserRouter>
     </>
   );
