@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useVechileStore } from "../store/vechileStore";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import VehicleCard from "../components/VechileCard";
 import CropCard from "../components/CropCard";
 import { useCropStore } from "../store/cropStore";
 import CropCard2 from "../components/CropCard2";
 import useOrderStore from "../store/orderStore";
+import VehicleCard2 from "../components/VechileCard2";
 
 const OrderPage = () => {
+
+  const navigate = useNavigate()
+
   const { vechiles, getAllVehicles } = useVechileStore();
   const { crops, getAllCrops, isLoading } = useCropStore();
   const { calculateDistance, calculatePrice, placeOrder } = useOrderStore()
@@ -63,6 +67,7 @@ const OrderPage = () => {
     alert(
       `Vehicle: ${selectedVehicle}\nDestination: ${destination}\nQuantity: ${quantity}\nDistance: ${distance}\nPrice: ${price}`
     );
+    navigate("/homepageVendor/payment")
   };
 
   if (loading || isLoading) {
@@ -81,7 +86,7 @@ const OrderPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {vechiles.map((vehicle) => (
               <div key={vehicle._id} onClick={() => handleVehicleSelect(vehicle)} className="cursor-pointer transform transition duration-300 hover:scale-105">
-                <VehicleCard vehicle={vehicle} />
+                <VehicleCard2 vehicle={vehicle} />
               </div>
             ))}
           </div>

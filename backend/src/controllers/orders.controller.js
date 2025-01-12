@@ -4,7 +4,9 @@ import { Order } from "../models/order.model.js"
 import { Route } from "../models/route.model.js"
 import { Vechile } from "../models/Vechile.model.js"
 import {GoogleGenerativeAI} from '@google/generative-ai'
-
+import {v4 as uuidv4} from 'uuid'
+import Stripe from 'stripe'
+const stripe = new Stripe(process.env.SECRET_KEY)
 
 
  const genAi = new GoogleGenerativeAI(process.env.GEMINI_API_SECRET)
@@ -248,4 +250,21 @@ const getOrders = async (req, res) => {
     }
 }
 
-export {bookVechile, addRoute, deleteRoute, calculateDistance, calculatePrice, orderController, getOrders}
+const payment = async (req, res) => {
+    try {
+        const { amount } = req.body;
+    
+        const paymentIntent = await stripe.paymentIntents.create({
+          amount, // in cents
+          currency: "usd",
+          payment_method_types: ["card"],
+        });
+    
+        res.status(200).send(paymentIntent);
+      } catch (error) {
+        res.status(500).send({ error: error.message });
+      }
+    
+}
+
+export {bookVechile, addRoute, deleteRoute, calculateDistance, calculatePrice, orderController, getOrders, payment}

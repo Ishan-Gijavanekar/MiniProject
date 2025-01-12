@@ -36,7 +36,7 @@ const NavbarVendor = () => {
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 {/* Navigation links for larger screens */}
-                <NavLink to="/">Home</NavLink>
+                <NavLink to="/homepageVendor/order">Home</NavLink>
                 <NavLink to="/about">About</NavLink>
                 <NavLink to="/services">Services</NavLink>
                 <NavLink to="/contact">Contact</NavLink>
