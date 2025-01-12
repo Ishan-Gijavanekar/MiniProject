@@ -81,16 +81,16 @@ const NavbarTransport = () => {
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {/* Navigation links for smaller screens */}
-            <NavLink to="/" mobile>
+            <NavLink to="/homepageTransport/transports" mobile>
               Home
             </NavLink>
-            <NavLink to="/about" mobile>
+            <NavLink to="/homepageTransport/about" mobile>
               About
             </NavLink>
-            <NavLink to="/services" mobile>
+            <NavLink to="/homepageTransport/services" mobile>
               Services
             </NavLink>
-            <NavLink to="/contact" mobile>
+            <NavLink to="/homepageTransport/contact" mobile>
               Contact
             </NavLink>
           </div>

@@ -27,7 +27,7 @@ const SidebarVendor = () => {
       </button>
       <nav className="flex flex-col h-full py-4">
         <SidebarLink to="/homepageVendor/order" icon={<ShoppingCartIcon />} text="Place order" isOpen={isOpen} />
-        <SidebarLink to="/homepage/add-crop" icon={<ListOrdered />} text="Order History" isOpen={isOpen} />
+        <SidebarLink to="/homepageVendor/orderList" icon={<ListOrdered />} text="Order History" isOpen={isOpen} />
         <SidebarLink to="/homepageVendor/chat-application" icon={<MessagesSquareIcon />} text="Chat Application" isOpen={isOpen} />
         <SidebarLink to="/homepageVendor/settings" icon={<Settings />} text="Settings" isOpen={isOpen} />
       </nav>

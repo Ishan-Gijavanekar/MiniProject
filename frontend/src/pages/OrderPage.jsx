@@ -64,12 +64,36 @@ const OrderPage = () => {
     setPrice(price);
   };
 
-  const handleSubmit = () => {
-    alert(
-      `Vehicle: ${selectedVehicle}\nDestination: ${destination}\nQuantity: ${quantity}\nDistance: ${distance}\nPrice: ${price}`
-    );
-    navigate("/homepageVendor/payment")
+  const handleSubmit = async(e) => {
+
+    e.preventDefault()
+
+    // alert(
+    //   `Vehicle: ${selectedVehicle}\nDestination: ${destination}\nQuantity: ${quantity}\nDistance: ${distance}\nPrice: ${price}`
+    // );
+
+
+    const placeOrderDetails = {
+      vechile: selectedVehicle._id,
+      transport: selectedVehicle.transporter,
+      field: selectedcrop.feildId._id,
+      crop: selectedcrop._id,
+      quantity: quantity,
+      price: price,
+      location: destination,
+      distance
+    }
+
+    await placeOrder(placeOrderDetails)
+
   };
+
+  let avaibleCrops = []
+  for (let i=0;i<crops.length;i++) {
+    if(crops[i].quantity !== 0) {
+      avaibleCrops.push(crops[i])
+    }
+  }
 
   if (loading || isLoading) {
     return (
@@ -102,7 +126,7 @@ const OrderPage = () => {
         <div className="mt-12">
           <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Select Crop</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {crops.map((crop) => (  
+            {avaibleCrops.map((crop) => (  
               <div key={crop._id} onClick={() => handleCropSelected(crop)} className="cursor-pointer transform transition duration-300 hover:scale-105">
                 <CropCard2 crop={crop} />
               </div>

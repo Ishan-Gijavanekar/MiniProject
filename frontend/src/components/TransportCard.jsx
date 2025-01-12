@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building2, MapPin, Plus, Eye, Truck } from 'lucide-react';
+import { Building2, MapPin, Plus, Eye, Truck, Contact } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const CompanyDetailsCard = ({ transport }) => {
@@ -15,7 +15,7 @@ const CompanyDetailsCard = ({ transport }) => {
       navigate(`/homepageTransport/get-vechile/${transport._id}`)
     }
     const onViewDetails = () => { 
-
+      navigate(`/homepageTransport/update-transport/${transport._id}`);
     }
   return (
     <div className="w-full m-5 bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden transition-shadow duration-300 hover:shadow-lg">
@@ -28,6 +28,10 @@ const CompanyDetailsCard = ({ transport }) => {
           <p className="flex items-center text-sm text-gray-600 mb-4">
             <MapPin className="w-4 h-4 mr-2 text-gray-400 flex-shrink-0" />
             <span className="truncate">{transport.BaseLocation}</span>
+          </p>
+          <p className="flex items-center text-sm text-gray-600 mb-4">
+            <Contact className="w-4 h-4 mr-2 text-gray-400 flex-shrink-0" />
+            <span className="truncate">{transport.contactNumber}</span>
           </p>
         </div>
         <div className="p-4 sm:p-6 flex flex-row sm:flex-col justify-between sm:justify-center space-x-2 sm:space-x-0 sm:space-y-2 bg-gray-50 border-t sm:border-t-0 sm:border-l border-gray-200">
@@ -43,7 +47,7 @@ const CompanyDetailsCard = ({ transport }) => {
             className="flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-blue-600 bg-blue-100 rounded-md hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
           >
             <Eye className="w-4 h-4 mr-1 sm:mr-2" />
-            View Details
+            Update Details
           </button>
           <button
             onClick={onViewVehicles}

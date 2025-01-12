@@ -4,7 +4,7 @@ import { Order } from "../models/order.model.js"
 import { Route } from "../models/route.model.js"
 import { Vechile } from "../models/Vechile.model.js"
 import {GoogleGenerativeAI} from '@google/generative-ai'
-import {v4 as uuidv4} from 'uuid'
+import {parse, v4 as uuidv4} from 'uuid'
 import Stripe from 'stripe'
 import { Stock } from "../models/stock.model.js"
 const stripe = new Stripe(process.env.SECRET_KEY)
@@ -121,7 +121,7 @@ const deleteRoute = async (req, res) => {
 const orderController = async (req, res) => {
     try {
         const user = req.user._id
-        const {vechile, transport, field, crop, quantity, price, location} = req.body
+        const {vechile, transport, field, crop, quantity, price, location, distance} = req.body
 
         if (!vechile || !transport || !field || !crop || !quantity || !price || !location) {
             return res.status(401)
@@ -140,16 +140,18 @@ const orderController = async (req, res) => {
             .json({message: "Select another vehicle with greater capacity"})
         }
 
-        const stock = await Stock.find({
+        const stockDetails = await Stock.find({
             $and: [{crop}, {feild:field}]
         })
 
-        if(!stock) {
+
+
+        if(!stockDetails) {
             return res.status(401)
             .json({message: "Crops and Field did not get"})
         }
 
-        if (stock.stock < quantity) {
+        if (parseInt(stockDetails.stock) < parseInt(quantity)) {
             return res.status(401)
             .json({message: "Stock not avaible"})
         }
@@ -162,11 +164,41 @@ const orderController = async (req, res) => {
             quantity,
             price: 1.18 * parseInt(price),
             location,
-            user
+            user,
+            distance: parseInt(distance)
         })
+
+        const updatedStockValue = parseInt(stockDetails[0].stock) - parseInt(quantity)
+
+        if (updatedStockValue < 0) {
+            return res.status(401)
+            .json({message: "Stock Unavaible"})
+        }
 
         if (order) {
             await order.save()
+
+            const updatedStock = await Stock.findByIdAndUpdate(
+                stockDetails[0]._id,
+                {
+                    stock: parseInt(updatedStockValue)
+                },
+                {
+                    new: true
+                }
+            )
+
+            const updateCrop = await Crop.findByIdAndUpdate(
+                crop,
+                {
+                    quantity: parseInt(updatedStockValue)
+                },
+                {
+                    new: true
+                },
+            )
+
+            console.log(updatedStock)
 
             return res.status(200)
             .json({
@@ -261,7 +293,7 @@ const getOrders = async (req, res) => {
         .populate("feildId")
         .populate("transport")
 
-        if (allorders.length > 0) {
+        if (allorders.length < 0) {
             return res.status(401)
             .json({message: "No Orders avaible"})
         }

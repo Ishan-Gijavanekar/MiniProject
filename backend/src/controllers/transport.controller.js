@@ -109,7 +109,9 @@ const updateTrasport = async (req, res) => {
         const updatedTransport = await Transport.findByIdAndUpdate(
             id,
             {
-                $set: {transportName, BaseLocation, contactNumber}
+                transportName, 
+                BaseLocation, 
+                contactNumber
             },
             {
                 new: true
@@ -165,4 +167,20 @@ const deleteTransport = async (req, res) => {
     }
 }
 
-export {addTransport, getTransport, updateTrasport, deleteTransport}
+const getTransportById = async (req, res) => {
+    try { 
+        const { id } = req.params; 
+
+        const transport = await Transport.findById(id) 
+        if (!transport) { 
+            return res.status(404).json({ message: "Transport Company not found" }); 
+        } 
+        
+        return res.status(200).json({ transport });
+    } catch (error) { 
+        console.log("Error in getting transport by id ", error.message); 
+        res.status(500).json({ message: "Internal server error" }); 
+    }
+}
+
+export {addTransport, getTransport, updateTrasport, deleteTransport, getTransportById}
