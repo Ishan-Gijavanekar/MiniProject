@@ -6,6 +6,7 @@ import { Vechile } from "../models/Vechile.model.js"
 import {GoogleGenerativeAI} from '@google/generative-ai'
 import {v4 as uuidv4} from 'uuid'
 import Stripe from 'stripe'
+import { Stock } from "../models/stock.model.js"
 const stripe = new Stripe(process.env.SECRET_KEY)
 
 
@@ -122,9 +123,35 @@ const orderController = async (req, res) => {
         const user = req.user._id
         const {vechile, transport, field, crop, quantity, price, location} = req.body
 
-        if (!vechile || !transport || !field || !crop || quantity || !price || !location) {
+        if (!vechile || !transport || !field || !crop || !quantity || !price || !location) {
             return res.status(401)
             .json({message: "All feilds are required"})
+        }
+
+        const vehicle = await Vechile.findById(vechile)
+
+        if (!vehicle) {
+            return res.status(401)
+            .json({message: "Inavlid Vehicle"})
+        }
+
+        if (quantity > vehicle.capacity) {
+            return res.status(401)
+            .json({message: "Select another vehicle with greater capacity"})
+        }
+
+        const stock = await Stock.find({
+            $and: [{crop}, {feild:field}]
+        })
+
+        if(!stock) {
+            return res.status(401)
+            .json({message: "Crops and Field did not get"})
+        }
+
+        if (stock.stock < quantity) {
+            return res.status(401)
+            .json({message: "Stock not avaible"})
         }
 
         const order = await new Order({

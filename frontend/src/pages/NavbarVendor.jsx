@@ -37,9 +37,9 @@ const NavbarVendor = () => {
               <div className="ml-10 flex items-baseline space-x-4">
                 {/* Navigation links for larger screens */}
                 <NavLink to="/homepageVendor/order">Home</NavLink>
-                <NavLink to="/about">About</NavLink>
-                <NavLink to="/services">Services</NavLink>
-                <NavLink to="/contact">Contact</NavLink>
+                <NavLink to="/homepageVendor/about">About</NavLink>
+                <NavLink to="/homepageVendor/services">Services</NavLink>
+                <NavLink to="/homepageVendor/contact">Contact</NavLink>
               </div>
             </div>
           </div>
@@ -81,16 +81,16 @@ const NavbarVendor = () => {
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {/* Navigation links for smaller screens */}
-            <NavLink to="/" mobile>
+            <NavLink to="/homepageVendor/order" mobile>
               Home
             </NavLink>
-            <NavLink to="/about" mobile>
+            <NavLink to="/homepageVendor/about" mobile>
               About
             </NavLink>
-            <NavLink to="/services" mobile>
+            <NavLink to="//homepageVendor/services" mobile>
               Services
             </NavLink>
-            <NavLink to="/contact" mobile>
+            <NavLink to="/homepageVendor/contact" mobile>
               Contact
             </NavLink>
           </div>

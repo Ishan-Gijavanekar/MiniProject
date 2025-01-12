@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, PlusCircle, Leaf, RefreshCw, Trash2, Package, Upload, Settings } from 'lucide-react';
+import { ChevronLeft, ChevronRight, PlusCircle, Leaf, RefreshCw, Trash2, Package, Upload, Settings, ShoppingCartIcon, ListOrdered, MessagesSquareIcon } from 'lucide-react';
 import { useSidebar } from '../customhooks/useSidebar';
 
 const SidebarVendor = () => {
@@ -26,13 +26,10 @@ const SidebarVendor = () => {
         {isOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
       </button>
       <nav className="flex flex-col h-full py-4">
-        <SidebarLink to="/homepage/add-field" icon={<PlusCircle />} text="Add Field" isOpen={isOpen} />
-        <SidebarLink to="/homepage/add-crop" icon={<Leaf />} text="Add Crop" isOpen={isOpen} />
-        <SidebarLink to="/update-status" icon={<RefreshCw />} text="Update/Status" isOpen={isOpen} />
-        <SidebarLink to="/delete" icon={<Trash2 />} text="Delete" isOpen={isOpen} />
-        <SidebarLink to="/present-stock" icon={<Package />} text="Present Stock" isOpen={isOpen} />
-        <SidebarLink to="/upload-image" icon={<Upload />} text="Upload Image" isOpen={isOpen} />
-        <SidebarLink to="/settings" icon={<Settings />} text="Settings" isOpen={isOpen} />
+        <SidebarLink to="/homepageVendor/order" icon={<ShoppingCartIcon />} text="Place order" isOpen={isOpen} />
+        <SidebarLink to="/homepage/add-crop" icon={<ListOrdered />} text="Order History" isOpen={isOpen} />
+        <SidebarLink to="/homepageVendor/chat-application" icon={<MessagesSquareIcon />} text="Chat Application" isOpen={isOpen} />
+        <SidebarLink to="/homepageVendor/settings" icon={<Settings />} text="Settings" isOpen={isOpen} />
       </nav>
     </motion.div>
   );

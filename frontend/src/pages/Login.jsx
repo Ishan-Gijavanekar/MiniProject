@@ -17,7 +17,7 @@ const LoginPage = () => {
     if(res.type == "Farmer"){
       navigate("/homepage/feilds")
     } else if (res.type == "Vendor") {
-      navigate("/homepageVendor")
+      navigate("/homepageVendor/order")
     } else if (res.type == "Logistics") {
       navigate("/homepageTransport/transports")
     } else {

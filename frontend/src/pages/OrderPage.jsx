@@ -7,6 +7,7 @@ import { useCropStore } from "../store/cropStore";
 import CropCard2 from "../components/CropCard2";
 import useOrderStore from "../store/orderStore";
 import VehicleCard2 from "../components/VechileCard2";
+import StripePayment from "../components/Payment";
 
 const OrderPage = () => {
 
@@ -166,7 +167,10 @@ const OrderPage = () => {
                   </button>
                 </div>
               </div>
-
+              {price && (<div>
+                <StripePayment price = {price}/>
+              </div>)}
+              
               <button
                 onClick={handleSubmit}
                 className="w-full p-3 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300 mt-6"

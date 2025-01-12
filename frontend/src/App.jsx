@@ -35,6 +35,8 @@ import HomeChat from "./pages/HomeChat";
 import OrderPage from "./pages/OrderPage";
 import { Toaster } from 'react-hot-toast'
 import StripePayment from "./components/Payment";
+import AboutPageVendor from "./pages/AboutVendor";
+import ServicesPageVendor from "./pages/ServicesVendor";
 
 
 function App() {
@@ -55,6 +57,11 @@ function App() {
           <Route path="/homepageVendor" element= {<LayoutVendor />}>
           <Route path="/homepageVendor/order" element= {<OrderPage />}></Route>
           <Route path="/homepageVendor/payment" element= {<StripePayment />}></Route>
+          <Route path="/homepageVendor/about" element= {<AboutPageVendor />}></Route>
+          <Route path="/homepageVendor/services" element= {<ServicesPageVendor />}></Route>
+          <Route path="/homepageVendor/contact" element= {<ContactUs />}></Route>
+          <Route path="/homepageVendor/settings" element= {<ProfilePage />}></Route>
+          <Route path="/homepageVendor/chat-application" element= {<HomeChat />}></Route>
           </Route>
           <Route path="/homepageTransport" element= {<LayoutTransport />}>
           <Route path="/homepageTransport/add-transport" element={<AddTransportForm />}/>

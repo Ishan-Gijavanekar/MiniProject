@@ -80,7 +80,7 @@ const CheckoutForm = ({price}) => {
           (!stripe || isProcessing) && "opacity-50 cursor-not-allowed"
         }`}
       >
-        {isProcessing ? "Processing…" : "Pay $10.00"}
+        {isProcessing ? "Processing…" : `Pay Rs. ${price}`}
       </button>
       {errorMessage && (
         <div className="mt-4 text-sm text-red-600" role="alert">
@@ -96,14 +96,14 @@ const CheckoutForm = ({price}) => {
   );
 };
 
-const StripePayment = () => (
+const StripePayment = ({price}) => (
   <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8">
     <div className="max-w-md w-full">
       <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 mb-6">
         Stripe Payment
       </h2>
       <Elements stripe={stripePromise}>
-        <CheckoutForm />
+        <CheckoutForm price = {price} />
       </Elements>
     </div>
   </div>
