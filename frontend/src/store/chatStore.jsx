@@ -4,7 +4,7 @@ import { useAuthStore } from './authStore'
 import axios from 'axios'
 
 
-const baseUrl = "http://localhost:5000/api/v1/messages"
+const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000/api/v1/messages" : "/"
 
 export const useChatStore = create((set, get) => ({
     messages: [],

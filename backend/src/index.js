@@ -12,9 +12,12 @@ import messageRoutes from './routes/message.routes.js'
 import vechileRoutes from './routes/vechile.routes.js'
 import orderRoutes from "./routes/order.routes.js"
 import { app, server } from './utils/socket.js'
+import path from 'path'
 
 
 const port = process.env.PORT;
+
+const __dirname = path.resolve()
 
 
 // Middlewares
@@ -36,6 +39,14 @@ app.use("/api/v1/messages", messageRoutes)
 app.use("/api/v1/vechiles", vechileRoutes)
 app.use("/api/v1/orders", orderRoutes)
 
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, "../frontend/dist")))
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
+    })
+}
 
 
 server.listen(port, () => {

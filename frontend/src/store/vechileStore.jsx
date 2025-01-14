@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 
-const baseUrl = "http://localhost:5000/api/v1/vechiles";
+const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000/api/v1/vechiles" : "/";
 
 export const useVechileStore = create((set) => ({
   vechiles: [],

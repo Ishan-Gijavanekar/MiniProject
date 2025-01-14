@@ -30,7 +30,7 @@ const CheckoutForm = ({price}) => {
         card: cardElement,
       });
 
-      const response = await fetch("http://localhost:5000/api/v1/orders/make-payment", {
+      const response = await fetch(import.meta.env.MODE === 'development'? "http://localhost:5000/api/v1/orders/make-payment" : "/make-payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ paymentMethodId: paymentMethod.id, amount: price }), // $10.00

@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-const baseUrl = "http://localhost:5000/api/v1/crops";
+const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000/api/v1/crops" : "/";
 
 export const useCropStore = create((set) => ({
   crops: [],

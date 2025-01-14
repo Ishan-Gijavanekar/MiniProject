@@ -3,7 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 
-const baseUrl = "http://localhost:5000/api/v1/orders"
+const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000/api/v1/orders" : "/"
 
 const useOrderStore = create((set) => ({
   orders: [],

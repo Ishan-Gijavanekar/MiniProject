@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-const baseUrl = "http://localhost:5000/api/v1/feilds";
+const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000/api/v1/feilds" : "/";
 
 export const useFarmStore = create((set) => ({
   fields: [],
