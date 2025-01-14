@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-import { axiosInstance } from '../utils/axiosInstance'
+import { axiosInstance } from '../utils/axios'
 
 axios.defaults.withCredentials = true;
 const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000" : "/";
@@ -14,7 +14,7 @@ export const useCropStore = create((set) => ({
   fetchCrops: async () => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/api/v1/crops/get-crops`);
+      const response = await axiosInstance.get(`/api/v1/crops/get-crops`);
       set({ crops: response.data.crops, isLoading: false });
     } catch (error) {
       set({ error: error.message, isLoading: false });
@@ -24,7 +24,7 @@ export const useCropStore = create((set) => ({
   addCrop: async (crop) => {
     set({ isLoading: true });
     try {
-      const response = await axios.post(`${baseUrl}/api/v1/crops/add-crop`, crop);
+      const response = await axiosInstance.post(`/api/v1/crops/add-crop`, crop);
       set((state) => ({ crops: [...state.crops, response.data.newCrop], isLoading: false }));
       alert("Crop Added Successfully");
     } catch (error) {
@@ -37,7 +37,7 @@ export const useCropStore = create((set) => ({
   updateCrop: async (id, updatedCrop) => {
     set({ isLoading: true });
     try {
-      const response = await axios.patch(`${baseUrl}/api/v1/crops/update-crop/${id}`, updatedCrop);
+      const response = await axiosInstance.patch(`/api/v1/crops/update-crop/${id}`, updatedCrop);
       set((state) => ({
         crops: state.crops.map((crop) => (crop._id === id ? response.data.updateDetails : crop)),
         isLoading: false,
@@ -52,7 +52,7 @@ export const useCropStore = create((set) => ({
   deleteCrop: async (id) => {
     set({ isLoading: true });
     try {
-      await axios.delete(`${baseUrl}/api/v1/crops/delete-crop/${id}`);
+      await axiosInstance.delete(`/api/v1/crops/delete-crop/${id}`);
       set((state) => ({ crops: state.crops.filter((crop) => crop._id !== id), isLoading: false }));
     } catch (error) {
       set({ error: error.message, isLoading: false });
@@ -62,7 +62,7 @@ export const useCropStore = create((set) => ({
   getAllCrops : async () => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/api/v1/crops/getAllCrops`);
+      const response = await axiosInstance.get(`/api/v1/crops/getAllCrops`);
       set((state) => ({
         crops: response.data.crops,
         isLoading: false,
@@ -78,7 +78,7 @@ export const useCropStore = create((set) => ({
   getCropById: async (id) => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/api/v1/crops/get-crop/${id}`);
+      const response = await axiosInstance.get(`/api/v1/crops/get-crop/${id}`);
       set((state) => ({
         crops: [...state.crops.filter((crop) => crop._id !== id), response.data.crop],
         isLoading: false,
@@ -95,7 +95,7 @@ export const useCropStore = create((set) => ({
     set({ isLoading: true });
     try {
       console.log(id)
-      const response = await axios.post(`${baseUrl}/api/v1/crops/get-crop`,id);
+      const response = await axiosInstance.post(`/api/v1/crops/get-crop`,id);
       set((state) => ({
         crops: [...state.crops.filter((crop) => crop._id !== id), response.data.crop],
         isLoading: false,
@@ -113,7 +113,7 @@ export const useCropStore = create((set) => ({
   uploadCropImage: async (farmId, cropId, cropImage) => {
     set({ isLoading: true });
     try {
-      const response = await axios.patch(`${baseUrl}/api/v1/crops/upload-crop-image`, {
+      const response = await axiosInstance.patch(`/api/v1/crops/upload-crop-image`, {
         farmId,
         cropId,
         cropImage
@@ -136,7 +136,7 @@ export const useCropStore = create((set) => ({
   getAvailableStock: async () => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/api/v1/crops/get-stock`);
+      const response = await axiosInstance.get(`/api/v1/crops/get-stock`);
       set({stocks: response.data.stocks , isLoading: false });
       return response.data.stocks;
       alert("Stock Retrived successfully")

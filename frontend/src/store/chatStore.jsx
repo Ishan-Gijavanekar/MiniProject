@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast'
 import {create} from 'zustand'
 import { useAuthStore } from './authStore'
-import { axiosInstance } from '../utils/axiosInstance'
+import { axiosInstance } from '../utils/axios'
 
 
 const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000" : "/"
