@@ -3,7 +3,7 @@ import { Crop } from "../models/crop.model.js"
 import { Order } from "../models/order.model.js"
 import { Route } from "../models/route.model.js"
 import { Vechile } from "../models/Vechile.model.js"
-import {GoogleGenerativeAI} from '@google/generative-ai/dist/index.mjs'
+import {GoogleGenerativeAI} from '@google/generative-ai'
 import {parse, v4 as uuidv4} from 'uuid'
 import Stripe from 'stripe'
 import { Stock } from "../models/stock.model.js"
