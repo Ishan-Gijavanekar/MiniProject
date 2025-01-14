@@ -2,7 +2,7 @@ import {create} from 'zustand';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-
+axios.defaults.withCredentials = true;
 const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000" : "/"
 
 export const useTransportStore = create((set) => ({

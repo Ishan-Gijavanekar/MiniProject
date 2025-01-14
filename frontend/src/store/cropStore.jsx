@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
+import { axiosInstance } from '../utils/axiosInstance'
 
 axios.defaults.withCredentials = true;
 const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000" : "/";

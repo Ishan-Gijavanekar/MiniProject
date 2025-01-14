@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast'
 import {create} from 'zustand'
 import { useAuthStore } from './authStore'
-import axios from 'axios'
+import { axiosInstance } from '../utils/axiosInstance'
 
 
 const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000" : "/"
@@ -16,7 +16,7 @@ export const useChatStore = create((set, get) => ({
     getUsers: async() => {
         set({isUsersLoading: true})
         try {
-            const res = await axios.get(`${baseUrl}/api/v1/messages/get-users`)
+            const res = await axiosInstance.get(`/api/v1/messages/get-users`)
             set({users: res.data})
             toast.success("Users fetched Successfully")
         } catch (error) {
@@ -30,7 +30,7 @@ export const useChatStore = create((set, get) => ({
     getMessages: async (userId) => {
         set({isMessagesLoading: true})
         try {
-            const res = await axios.post(`${baseUrl}/api/v1/messages/get-messages/${userId}`)
+            const res = await axiosInstance.post(`/api/v1/messages/get-messages/${userId}`)
             set({messages: res.data})
             toast.success("Messages Fetched Successfully")
         } catch (error) {
@@ -44,7 +44,7 @@ export const useChatStore = create((set, get) => ({
     sendMessage: async (data) => {
         const {selectedUser, messages} = get()
         try {
-            const res = await axios.post(`${baseUrl}/api/v1/messages/send-message/${selectedUser._id}`, data)
+            const res = await axiosInstance.post(`/api/v1/messages/send-message/${selectedUser._id}`, data)
             set({messages:[...messages,res.data]})
         } catch (error) {
             console.log("Error in sendMessage: ", error)

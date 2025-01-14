@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
+
 const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000" : "/";
 
 export const useVechileStore = create((set) => ({
