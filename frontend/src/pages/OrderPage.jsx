@@ -8,6 +8,8 @@ import CropCard2 from "../components/CropCard2";
 import useOrderStore from "../store/orderStore";
 import VehicleCard2 from "../components/VechileCard2";
 import StripePayment from "../components/Payment";
+import { PDFDocument, rgb } from 'pdf-lib'
+import download from 'downloadjs';
 
 const OrderPage = () => {
 
@@ -15,7 +17,7 @@ const OrderPage = () => {
 
   const { vechiles, getAllVehicles } = useVechileStore();
   const { crops, getAllCrops, isLoading } = useCropStore();
-  const { calculateDistance, calculatePrice, placeOrder } = useOrderStore()
+  const { calculateDistance, calculatePrice, placeOrder} = useOrderStore()
   const { id } = useParams();
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [selectedcrop, setSelectedcrop] = useState(null);
@@ -24,6 +26,7 @@ const OrderPage = () => {
   const [distance, setDistance] = useState("");
   const [price, setPrice] = useState("");
   const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState(null)
 
   useEffect(() => {
     const fetchVehicles = async () => {
@@ -85,6 +88,8 @@ const OrderPage = () => {
     }
 
     await placeOrder(placeOrderDetails)
+
+    navigate(`homepageVendor/printOrder/${response._id}`)
 
   };
 

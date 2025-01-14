@@ -87,7 +87,7 @@ const NavbarVendor = () => {
             <NavLink to="/homepageVendor/about" mobile>
               About
             </NavLink>
-            <NavLink to="//homepageVendor/services" mobile>
+            <NavLink to="/homepageVendor/services" mobile>
               Services
             </NavLink>
             <NavLink to="/homepageVendor/contact" mobile>

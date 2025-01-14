@@ -22,6 +22,19 @@ const useOrderStore = create((set) => ({
     }
   },
 
+  getOrderById: async(id) => {
+    set({ loading:true, error:null })
+    try {
+      const response = await axios.get(`${baseUrl}/getOrderById/${id}`)
+      toast.success("Order details fetched successfully")
+      set({loading: false})
+      return response.data.orderDetails
+    } catch (error) {
+      set({ error: error.message, loading: false });
+      toast.error(error.response.data.message)
+    }
+  },
+
   calculateDistance: async (startLoc, endLoc) => {
     set({ loading: true, error: null });
     try {
@@ -54,6 +67,7 @@ const useOrderStore = create((set) => ({
       const response = await axios.post(`${baseUrl}/place-order`, orderData);
       set((state) => ({ orders: [...state.orders, response.data.order], loading: false }));
       toast.success("Order placed successfully")
+      return response.data.order
     } catch (error) {
       set({ error: error.message, loading: false });
       toast.error(error.response.data.message)

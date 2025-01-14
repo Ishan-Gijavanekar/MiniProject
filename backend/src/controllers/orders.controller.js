@@ -326,4 +326,36 @@ const payment = async (req, res) => {
     
 }
 
-export {bookVechile, addRoute, deleteRoute, calculateDistance, calculatePrice, orderController, getOrders, payment}
+const getOrderById = async (req, res) => {
+    try {
+        const {id} = req.params
+
+        if (!id) {
+            return res.status(401)
+            .json({message: "Id not there in params"})
+        }
+
+        const orderDetails = await Order.findById(id)
+        .populate("user")
+        .populate("vechile")
+        .populate("crop")
+        .populate("feildId")
+        .populate("transport")
+
+        if (!orderDetails) {
+            return res.status(401)
+            .json({message: "Order not specified properly"})
+        }
+
+        return res.status(200)
+        .json({
+            orderDetails,
+            message: "Order details fetched successfully"
+        })
+    } catch (error) {
+        console.log("Error in getting order by id ", error)
+        res.status(500).json({message: "Internal server error"})
+    }
+}
+
+export {bookVechile, addRoute, deleteRoute, calculateDistance, calculatePrice, orderController, getOrders, payment, getOrderById}

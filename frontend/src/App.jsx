@@ -39,6 +39,7 @@ import AboutPageVendor from "./pages/AboutVendor";
 import ServicesPageVendor from "./pages/ServicesVendor";
 import UpdateTransportForm from "./pages/UpdateTransportForm";
 import OrderListPage from "./components/OrderList";
+import OrderDetails from "./pages/PrintingContract";
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
           <Route path="/homepageVendor/settings" element= {<ProfilePage />}></Route>
           <Route path="/homepageVendor/chat-application" element= {<HomeChat />}></Route>
           <Route path="/homepageVendor/orderList" element= {<OrderListPage />}></Route>
+          <Route path="/homepageVendor/printOrder/:id" element= {<OrderDetails />}></Route>
           </Route>
           <Route path="/homepageTransport" element= {<LayoutTransport />}>
           <Route path="/homepageTransport/add-transport" element={<AddTransportForm />}/>
