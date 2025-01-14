@@ -89,7 +89,7 @@ const OrderPage = () => {
 
     await placeOrder(placeOrderDetails)
 
-    navigate(`homepageVendor/printOrder/${response._id}`)
+   // navigate(`homepageVendor/printOrder/${response._id}`)
 
   };
 
@@ -192,7 +192,7 @@ const OrderPage = () => {
                     onClick={handleGeneratePrice}
                     className="px-4 py-3 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 transition duration-300"
                   >
-                    Generate Price
+                    Generate Amount
                   </button>
                 </div>
               </div>
