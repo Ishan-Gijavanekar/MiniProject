@@ -4,7 +4,7 @@ import {toast} from 'react-hot-toast'
 import {io} from 'socket.io-client'
 import axios from 'axios'
 
-const baseUrl = import.meta.env.MODE === 'development'?  "http://localhost:5000/api/v1/users" : "/"
+const baseUrl = import.meta.env.MODE === 'development'?  "http://localhost:5000" : "/"
 const baseUrl1 = import.meta.env.MODE === 'development'? "http://localhost:5000" : "/"
 
 export const useAuthStore = create((set, get) => ({
@@ -17,7 +17,7 @@ export const useAuthStore = create((set, get) => ({
     checkAuth: async() => {
       set({isLoading: true})
       try {
-        const res = await axios.get(`${baseUrl}/get-user`)
+        const res = await axios.get(`${baseUrl}/api/v1/users/get-user`)
         set({userAuth: res.data.user})
         get().connectSocket()
       } catch (error) {
@@ -31,7 +31,7 @@ export const useAuthStore = create((set, get) => ({
     signup: async(data) => {
       set({isLoading: true})
       try {
-        const res = await axios.post(`${baseUrl}/register`, data)
+        const res = await axios.post(`${baseUrl}/api/v1/users/register`, data)
         set({userAuth: res.data})
         get().connectSocket()
         toast.success("User Registered Successfully")
@@ -46,7 +46,7 @@ export const useAuthStore = create((set, get) => ({
     login: async(data) => {
       set({isLoading: true})
       try {
-        const res = await axios.post(`${baseUrl}/login`, data)
+        const res = await axios.post(`${baseUrl}/api/v1/users/login`, data)
         set({userAuth: res.data})
         //console.log(userAuth)
         get().connectSocket()
@@ -64,7 +64,7 @@ export const useAuthStore = create((set, get) => ({
 
     logout: async() => {
       try {
-        const res = await axios.post(`${baseUrl}/logout`)
+        const res = await axios.post(`${baseUrl}/api/v1/users/logout`)
         set({userAuth: null})
         get().disconnectSocket()
         toast.success("Logout Successfully")
@@ -77,7 +77,7 @@ export const useAuthStore = create((set, get) => ({
     forgetPassword: async(data) => {
       set({isLoading: true})
       try {
-        const res = await axios.post(`${baseUrl}/forget-password`, data)
+        const res = await axios.post(`${baseUrl}/api/v1/users/forget-password`, data)
         set({userAuth: res.data.updatedUser})
         toast.success(res.data.message)
       } catch (error) {
@@ -91,7 +91,7 @@ export const useAuthStore = create((set, get) => ({
     updateProfilePic: async(data) => {
       set({isLoading: true})
       try {
-        const res = await axios.post(`${baseUrl}/update-profilePic`, data)
+        const res = await axios.post(`${baseUrl}/api/v1/users/update-profilePic`, data)
         set({userAuth: res.data.updatedUser})
         alert("Profile picture uploaded successfully")
         toast.success(res.data.message)
@@ -107,7 +107,7 @@ export const useAuthStore = create((set, get) => ({
     updateBackgroundPic: async(data) => {
       set({isLoading: true})
       try {
-        const res = await axios.post(`${baseUrl}/update-backgroundPic`, data)
+        const res = await axios.post(`${baseUrl}/api/v1/users/update-backgroundPic`, data)
         set({userAuth: res.data.updatedUser})
         alert("Image upload successfull")
         toast.success(res.data.message)

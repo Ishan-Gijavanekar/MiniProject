@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 
-const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000/api/v1/vechiles" : "/";
+const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000" : "/";
 
 export const useVechileStore = create((set) => ({
   vechiles: [],
@@ -11,7 +11,7 @@ export const useVechileStore = create((set) => ({
     console.log(vechileData)
     set({ isLoading: true });
     try {
-      const response = await axios.post(`${baseUrl}/add-vechile/${id}`, vechileData);
+      const response = await axios.post(`${baseUrl}/api/v1/vechiles/add-vechile/${id}`, vechileData);
 
       if (response.status !== 200) {
         throw new Error('Failed to add vechile');
@@ -31,7 +31,7 @@ export const useVechileStore = create((set) => ({
   getVechiles: async (transporterId) => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/get-vechiles/${transporterId}`);
+      const response = await axios.get(`${baseUrl}/api/v1/vechiles/get-vechiles/${transporterId}`);
 
       if (response.status !== 200) {
         throw new Error('Failed to fetch vechiles');
@@ -51,7 +51,7 @@ export const useVechileStore = create((set) => ({
   getVechilesById: async (vechileId) => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/getVechileById/${vechileId}`);
+      const response = await axios.get(`${baseUrl}/api/v1/vechiles/getVechileById/${vechileId}`);
 
       if (response.status !== 200) {
         throw new Error('Failed to fetch vechiles');
@@ -77,7 +77,7 @@ export const useVechileStore = create((set) => ({
   updateVechile: async (id, updatedData) => {
     set({ isLoading: true });
     try {
-      const response = await axios.patch(`${baseUrl}/update-details/${id}`, updatedData);
+      const response = await axios.patch(`${baseUrl}/api/v1/vechiles/update-details/${id}`, updatedData);
 
       if (response.status !== 200) {
         throw new Error('Failed to update vechile');
@@ -140,7 +140,7 @@ export const useVechileStore = create((set) => ({
   uploadImage: async (vechileData) => {
     set({ isLoading: true });
     try {
-      const response = await axios.patch(`${baseUrl}/upload-image`, vechileData);
+      const response = await axios.patch(`${baseUrl}/api/v1/vechiles/upload-image`, vechileData);
 
       if (response.status !== 200) {
         throw new Error('Failed to upload image');
@@ -164,7 +164,7 @@ export const useVechileStore = create((set) => ({
   getAllVehicles: async () => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/get-vechiles`);
+      const response = await axios.get(`${baseUrl}/api/v1/vechiles/get-vechiles`);
 
       if (response.status !== 200) {
         throw new Error('Failed to fetch vechiles');

@@ -3,7 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 
-const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000/api/v1/transport" : "/"
+const baseUrl = import.meta.env.MODE === 'development'? "http://localhost:5000" : "/"
 
 export const useTransportStore = create((set) => ({
   transports: [],
@@ -11,7 +11,7 @@ export const useTransportStore = create((set) => ({
   addTransport: async (transportData) => {
     set({ isLoading: true });
     try {
-      const response = await axios.post(`${baseUrl}/add-transport`, transportData);
+      const response = await axios.post(`${baseUrl}/api/v1/transport/add-transport`, transportData);
 
       if (response.status !== 200) {
         throw new Error('Failed to add transport');
@@ -29,7 +29,7 @@ export const useTransportStore = create((set) => ({
   getTransports: async () => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/get-transport`);
+      const response = await axios.get(`${baseUrl}/api/v1/transport/get-transport`);
 
       if (response.status !== 200) {
         throw new Error('Failed to fetch transports');
@@ -45,7 +45,7 @@ export const useTransportStore = create((set) => ({
   updateTransport: async (id, updatedData) => {
     set({ isLoading: true });
     try {
-      const response = await axios.patch(`${baseUrl}/update-transport/${id}`, updatedData);
+      const response = await axios.patch(`${baseUrl}/api/v1/transport/update-transport/${id}`, updatedData);
 
       if (response.status !== 200) {
         throw new Error('Failed to update transport');
@@ -67,7 +67,7 @@ export const useTransportStore = create((set) => ({
   deleteTransport: async (id) => {
     set({ isLoading: true });
     try {
-      const response = await axios.delete(`/api/transports/${id}`);
+      const response = await axios.delete(`${baseUrl}/api/v1/transport/transports/${id}`);
 
       if (response.status !== 200) {
         throw new Error('Failed to delete transport');
@@ -86,7 +86,7 @@ export const useTransportStore = create((set) => ({
   getTransportById: async (id) => {
     set({ isLoading: true });
     try {
-      const response = await axios.get(`${baseUrl}/get-transport/${id}`);
+      const response = await axios.get(`${baseUrl}/api/v1/transport/get-transport/${id}`);
       if (response.status !== 200) {
         throw new Error("Failed to fetch transport");
       }
