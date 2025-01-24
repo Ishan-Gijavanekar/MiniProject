@@ -12,7 +12,7 @@ const HomePage = () => {
       {/* Header */}
       <header className="bg-blue-900 text-white py-4">
         <div className="container mx-auto flex justify-between items-center px-4">
-          <div className="text-2xl font-bold">FarmConnect</div>
+          <div className="text-2xl font-bold">HarvestConnect</div>
           <nav className="hidden md:flex items-center space-x-4">
             <a href="#home">Home</a>
             <a href="#features">Features</a>
@@ -46,12 +46,13 @@ const HomePage = () => {
           <a href="#contact" onClick={toggleNavbar}>
             Contact
           </a>
-          <button
+          <Link
+            to="/login"
             className="px-4 py-2 bg-white text-blue-900 rounded hover:bg-gray-200 transititon-all"
             onClick={toggleNavbar}
           >
             Login
-          </button>
+          </Link>
         </nav>
       )}
 
@@ -61,12 +62,12 @@ const HomePage = () => {
         style={{ backgroundImage: 'url("background1.jpg")' }}
       >
         <div className="container mx-auto px-4 text-center pt-16">
-          <h1 className="text-5xl font-bold mb-4">Welcome to Connect</h1>
+          <h1 className="text-5xl font-bold mb-4">Welcome to HarvestConnect</h1>
           <p className="text-lg mb-8">
             Your partner in assured contract farming. Connect with potential
             buyers, manage contracts seamlessly, and ensure timely payments.
           </p>
-          <Link to={"/login"} className="px-6 py-3 bg-blue-700 rounded text-white text-lg hover:bg-blue-800">
+          <Link to={"/signup"} className="px-6 py-3 bg-blue-700 rounded text-white text-lg hover:bg-blue-800">
             Get Started
           </Link>
         </div>
@@ -110,21 +111,21 @@ const HomePage = () => {
                 "FarmConnect has transformed the way we do business. We now have
                 guaranteed buyers for our produce."
               </blockquote>
-              <footer className="mt-4">- Farmer John</footer>
+              <footer className="mt-4">- ***</footer>
             </div>
             <div className="p-6 text-center">
               <blockquote className="italic">
                 "The contract management tools are intuitive and have saved us a
                 lot of time."
               </blockquote>
-              <footer className="mt-4">- Buyer Sarah</footer>
+              <footer className="mt-4">- ***</footer>
             </div>
             <div className="p-6 text-center">
               <blockquote className="italic">
                 "We’ve never had to worry about timely payments since using
                 FarmConnect."
               </blockquote>
-              <footer className="mt-4">- Vendor Mike</footer>
+              <footer className="mt-4">- ***</footer>
             </div>
           </div>
         </div>
@@ -157,8 +158,8 @@ const HomePage = () => {
             </div>
             <div>
               <h5 className="text-xl font-bold">Contact Us</h5>
-              <p className="mt-2">Email: info@farmconnect.com</p>
-              <p className="mt-2">Phone: +1 234 567 890</p>
+              <p className="mt-2">Email: isg.sachin@gmail.com</p>
+              <p className="mt-2">Phone: +91 8830368951</p>
             </div>
           </div>
         </div>
