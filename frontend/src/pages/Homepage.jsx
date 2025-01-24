@@ -136,7 +136,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h5 className="text-xl font-bold">FarmConnect</h5>
+              <h5 className="text-xl font-bold">HarvestConnect</h5>
               <p>Your partner in assured contract farming.</p>
             </div>
             <div>
