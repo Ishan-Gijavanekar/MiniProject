@@ -24,7 +24,7 @@ const PasswordCriteria = ({ password }) => {
 const PasswordStrengthMeter = ({ password }) => {
 	const getStrength = (pass) => {
 		let strength = 0;
-		if (pass.length >= 6) strength++;
+		if (pass.length >= 6) strength+=4;
 		return strength;
 	};
 	const strength = getStrength(password);
@@ -38,11 +38,11 @@ const PasswordStrengthMeter = ({ password }) => {
 	};
 
 	const getStrengthText = (strength) => {
-		if (strength === 0) return "Very Weak";
+		if (strength === 0) return "Invalid";
 		if (strength === 1) return "Weak";
 		if (strength === 2) return "Fair";
 		if (strength === 3) return "Good";
-		return "Strong";
+		return "Valid";
 	};
 
 	return (
