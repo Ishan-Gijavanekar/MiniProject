@@ -10,6 +10,7 @@ import VehicleCard2 from "../components/VechileCard2";
 import StripePayment from "../components/Payment";
 import { PDFDocument, rgb } from 'pdf-lib'
 import download from 'downloadjs';
+import {toast} from 'react-hot-toast';
 
 const OrderPage = () => {
 
@@ -48,10 +49,12 @@ const OrderPage = () => {
       top: document.documentElement.scrollHeight,
       behavior: "smooth",
     });
+    toast.success("Vehicle Selected Successfully");
   };
 
   const handleCropSelected = (crop) => {
     setSelectedcrop(crop)
+    toast.success("Crop Selected Successfully");
   }
 
   const handleGenerateDistance = async () => {
