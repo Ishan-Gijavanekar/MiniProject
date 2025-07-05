@@ -1,17 +1,20 @@
 # 🌾 HarvestConnect
 
-**HarvestConnect** is a full‑stack MERN (MongoDB, Express, React, Node.js) application that connects farmers, buyers, and distributors through a secure and scalable platform. It incorporates JWT authentication and a well‑structured frontend using state stores (e.g., Redux or Context API) to manage application state cleanly and efficiently.
+**HarvestConnect** is a full-stack MERN (MongoDB, Express, React, Node.js) application designed to connect farmers, buyers, and distributors through a secure, efficient, and scalable platform. It features JWT authentication and a modular frontend state management system using stores.
+
+🚀 **Live Demo:** [https://miniproject-i84g.onrender.com/](https://miniproject-i84g.onrender.com/)
 
 ---
 
 ## 🔑 Features
 
-- **JWT‑based authentication** for secure login, signup, and route protection  
-- **User roles & permissions** (e.g. farmer, buyer, admin)  
-- **Frontend stores** for managing authentication status, user data, and application state  
-- **CRUD operations** for listings: create, read, update, delete  
-- **RESTful APIs** with JWT middleware for protected routes  
-- **MongoDB** for scalable JSON‑document data storage  
+- 🔐 JWT-based Authentication (Login/Signup)
+- 👥 User roles and access control
+- 🌾 Crop/Product Listing CRUD operations
+- 🛒 Buyer interface for browsing and contacting sellers
+- 📦 State management via frontend stores
+- ⚡ RESTful API with Express and MongoDB
+- 🔧 Modular code structure for scalability
 
 ---
 
@@ -20,154 +23,108 @@
 ```
 
 /backend
-├── config/             # Config files (e.g., database, JWT secret)
-├── controllers/        # Route logic (auth, users, listings)
-├── middleware/         # JWT authentication, error handling
+├── config/             # DB & JWT config
+├── controllers/        # Business logic
+├── middleware/         # Auth and error handling
 ├── models/             # Mongoose schemas
-├── routes/             # Express route definitions
-└── server.js           # Entry point for the backend
+├── routes/             # Express endpoints
+└── server.js           # Entry point
 
 /frontend
-├── public/             # Static assets & index.html
+├── public/             # Static assets
 ├── src/
-│   ├── api/            # Axios or fetch API calls
-│   ├── components/     # Reusable UI components
-│   ├── pages/          # Route/home/dashboard pages
-│   ├── stores/         # Context or Redux stores (auth, listings, etc.)
-│   ├── App.js          # App layout and route setup
-│   └── index.js        # React DOM renderer
-└── package.json
-
-.gitignore
-README.md
+│   ├── api/            # Axios calls
+│   ├── components/     # Reusable UI
+│   ├── pages/          # Views and route pages
+│   ├── stores/         # Context/Redux stores
+│   ├── App.js          # Main layout and router
+│   └── index.js        # Root renderer
 
 ````
 
 ---
 
-## 🚀 Prerequisites
+## ⚙️ Installation
 
-- Node.js ≥ 14.x  
-- MongoDB (local or cloud-based)  
-- (Optional) Yarn  
-
----
-
-## ⚙️ Setup & Installation
-
-### 1. Backend
+### 🔧 Backend Setup
 
 ```bash
 cd backend
 npm install
 ````
 
-Create a `.env` file (copy `.env.example` if provided) including:
+Create a `.env` file in `/backend`:
 
-```
+```env
 PORT=5000
-MONGO_URI=your_mongo_url
+MONGO_URI=mongodb://localhost:27017/harvestconnect
 JWT_SECRET=your_jwt_secret_key
 JWT_EXPIRES_IN=7d
 ```
 
-Start the backend server:
+Start the server:
 
 ```bash
 npm run dev
-# or
-npm start
 ```
 
-Server runs on **[http://localhost:5000](http://localhost:5000)**
-
-### 2. Frontend
+### 💻 Frontend Setup
 
 ```bash
 cd frontend
 npm install
 ```
 
-Create `.env` file in `frontend/`:
+Create a `.env` in `/frontend`:
 
-```
+```env
 REACT_APP_API_URL=http://localhost:5000/api
 ```
 
-Start the frontend app:
+Run the React app:
 
 ```bash
 npm start
 ```
-
-App runs on **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
 ## 🔐 Authentication Flow
 
-1. `AuthStore` (Redux or Context) handles login, logout, and registration flows.
-2. On login/signup, user obtains an access token (JWT) from the server.
-3. JWT is saved in localStorage or HTTP-only cookie and used for all API calls.
-4. `PrivateRoute` or protected route components block access to authenticated pages.
-5. `AuthStore` fetches and stores user info (e.g., name, email, role).
+* User registers or logs in
+* JWT token is issued and saved locally
+* Protected routes require token to access
+* AuthStore or Context manages login/logout flow
 
 ---
 
-## 🏬 State Management (Stores)
+## 🏬 State Management
 
-The frontend is organized with the following stores:
+Frontend state is managed via:
 
-* **AuthStore**: Manages user authentication and JWT storage
-* **UserStore**: Retrieves and updates user profile info
-* **ListingStore**: CRUD operations for agricultural product listings
-
-Each store handles asynchronous actions (e.g., `login()`, `fetchListings()`, etc.) and exposes state and methods to React components via Context or Redux.
+* **AuthStore** – Login, logout, token, user data
+* **ListingStore** – CRUD operations for crop listings
+* **UserStore** – User profile and settings
 
 ---
 
-## 📦 API Endpoints
+## 🛠️ API Endpoints
 
-| Method | Endpoint             | Description                                 |
-| ------ | -------------------- | ------------------------------------------- |
-| POST   | `/api/auth/register` | Register a new user                         |
-| POST   | `/api/auth/login`    | Authenticate user and return JWT            |
-| GET    | `/api/auth/me`       | Fetch current user's profile (requires JWT) |
-| GET    | `/api/listings`      | Retrieve all listings (public)              |
-| GET    | `/api/listings/:id`  | Get listing by ID                           |
-| POST   | `/api/listings`      | Create a new listing (JWT required)         |
-| PUT    | `/api/listings/:id`  | Update a listing (JWT & owner required)     |
-| DELETE | `/api/listings/:id`  | Delete a listing (JWT & owner required)     |
-
-*Adjust or extend according to your implementation.*
+| Method | Route                | Description                     |
+| ------ | -------------------- | ------------------------------- |
+| POST   | `/api/auth/register` | Register new user               |
+| POST   | `/api/auth/login`    | Login user, get JWT             |
+| GET    | `/api/auth/me`       | Get current user (JWT required) |
+| GET    | `/api/listings`      | Get all crop listings           |
+| POST   | `/api/listings`      | Add new crop (JWT required)     |
+| PUT    | `/api/listings/:id`  | Update listing (JWT required)   |
+| DELETE | `/api/listings/:id`  | Delete listing (JWT required)   |
 
 ---
 
-## 🧪 Running in Development
+## 🧪 Testing (Optional)
 
-Open two terminal windows/tabs:
-
-* **Backend**:
-
-  ```bash
-  cd backend
-  npm run dev
-  ```
-
-* **Frontend**:
-
-  ```bash
-  cd frontend
-  npm start
-  ```
-
-This setup uses auto-reloading (e.g., Nodemon, React’s Fast Refresh) for rapid development.
-
----
-
-## ✅ Testing
-
-If you have tests set up (e.g., Jest, Supertest), add here:
+If using Jest or similar:
 
 ```bash
 cd backend
@@ -179,83 +136,82 @@ npm test
 
 ---
 
-## 🌐 Deployment
+## 🌍 Deployment
 
-Steps for deploying your MERN stack:
+The application is live at:
 
-1. Build the frontend:
+👉 **[https://miniproject-i84g.onrender.com/](https://miniproject-i84g.onrender.com/)**
+
+Deployment used:
+
+* **Render** for backend & frontend (monorepo or separate builds)
+* **MongoDB Atlas** (optional)
+
+### Steps:
+
+1. Build frontend:
 
    ```bash
-   cd frontend
    npm run build
    ```
-2. Serve static files from the backend (e.g., via Express), or host frontend separately using Netlify/Vercel and backend via Heroku/AWS.
-3. Set environment variables accordingly (`NODE_ENV=production`, `MONGO_URI`, `JWT_SECRET`).
-4. Secure your endpoints (CORS, HTTPS, helmet, rate limiting).
+2. Serve via backend:
 
----
-
-## 🔧 Useful Scripts
-
-* `npm run dev` – Start backend with hot-reload
-* `npm start` – Run backend (production style)
-* `npm run client` – Launch React development server
-* `npm run build` – Bundle frontend for production
+   * Set `Express.static()` to `/frontend/build`
+3. Add proper `.env` values in the Render dashboard
 
 ---
 
 ## 📋 Environment Variables
 
-**Backend (.env)**
+### Backend `.env`
 
-```
+```env
 PORT=5000
-MONGO_URI=<your MongoDB connection string>
-JWT_SECRET=<your JWT secret>
+MONGO_URI=<MongoDB connection URI>
+JWT_SECRET=<Your JWT secret>
 JWT_EXPIRES_IN=7d
 ```
 
-**Frontend (.env)**
+### Frontend `.env`
 
-```
+```env
 REACT_APP_API_URL=http://localhost:5000/api
 ```
 
 ---
 
-## 🎯 Roadmap
+## 🔮 Roadmap
 
-* [ ] User profile editing & avatar upload
-* [ ] Notifications between users
-* [ ] Search & filter listings by crop, location, price
-* [ ] Admin dashboard for user/listing management
-* [ ] Mobile responsiveness & PWA support
+* [ ] User profile editing
+* [ ] Admin dashboard for managing users/listings
+* [ ] PWA support for mobile access
+* [ ] Real-time notifications (Socket.io)
+* [ ] Chat system between buyer & farmer
 
 ---
 
-## 🙌 Contributing
+## 🤝 Contributing
 
-1. Fork the repo
-2. Create a feature branch (`git checkout -b feature/new-feature`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature/new-feature`)
-5. Open a Pull Request
+1. Fork the project
+2. Create your feature branch: `git checkout -b feature/AmazingFeature`
+3. Commit your changes: `git commit -m 'Add some AmazingFeature'`
+4. Push to the branch: `git push origin feature/AmazingFeature`
+5. Open a pull request
 
 ---
 
 ## 📄 License
 
-This project is licensed under the *MIT License* – see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ---
 
-## 💬 Contact
+## 🙋 Contact
 
-Created by **Ishan Gijavanekar**, **Gururaj Kurbet**.
-Feel free to open issues or contact via GitHub.
+**Ishan Gijavanekar**, **Gururaj Kurbet**
+GitHub: [@Ishan-Gijavanekar](https://github.com/Ishan-Gijavanekar)
 
 ---
 
-**Enjoy building HarvestConnect!**
+### 🌱 Grow smarter with HarvestConnect!
 
-```
